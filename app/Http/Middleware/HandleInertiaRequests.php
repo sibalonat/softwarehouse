@@ -34,6 +34,7 @@ class HandleInertiaRequests extends Middleware
             'auth' => [
                 'user' => $request->user(),
                 'game' => $request->user()?->game,
+                'menu' => config('navigation.menu'),
             ],
         ];
     }

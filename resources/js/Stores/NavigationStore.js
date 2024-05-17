@@ -1,6 +1,6 @@
 import { router, usePage } from '@inertiajs/vue3'
 import { defineStore } from 'pinia'
-import { ref } from 'vue'
+import { reactive, ref } from 'vue'
 import anime from 'animejs'
 
 export const useNavigationStore = defineStore('navigation', () => {
@@ -12,8 +12,26 @@ export const useNavigationStore = defineStore('navigation', () => {
     const showingSidebar = ref(false)
     const targets = ref(null)
 
-    // authenticated user
+    // global props inertia
     const auth = usePage().props.auth
+
+    // menu items
+    const logout = ref({
+        title: 'Logout',
+        icon: 'arrow-right-start-on-rectangle',
+        route: 'logout',
+        children: []
+    })
+
+    const nav_links = ref(auth.menu)
+    nav_links.value.push(logout.value)
+    console.log(nav_links.value);
+
+    // accordion data
+    const accordion = reactive({
+        count: 0,
+        active: null,
+    })
 
     // methods
     function triggerShow() {
@@ -51,6 +69,8 @@ export const useNavigationStore = defineStore('navigation', () => {
         auth,
         menu,
         targets,
+        accordion,
+        nav_links,
         showingSidebar,
         showingNavigationDropdown,
         triggerShow,

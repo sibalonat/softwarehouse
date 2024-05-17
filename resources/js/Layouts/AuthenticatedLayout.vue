@@ -25,11 +25,19 @@ const { auth, showingSidebar } = storeToRefs(navigation);
                     <!-- ------------------- -->
                     <div class="flex items-center space-x-3">
                         <HamburgeMenuButton class="-translate-x-2 lg:-translate-x-4" />
+                        <div class="items-center hidden px-4 py-1 space-x-2 text-sm rounded-md text-neutral-50 md:flex">
+                            <Link :href="route('dashboard')">
+                                <DynamicHeroicon
+                                name="home"
+                                :size="6"
+                                class="inline p-1 my-auto ml-2 bg-white rounded-md text-virtual-blue" />
+                            </Link>
+                        </div>
                         <div class="items-center hidden px-4 py-1 space-x-2 text-sm rounded-md text-neutral-50 bg-neutral-50/10 md:flex">
                             <p><span class="mr-2 text-xs opacity-70">CEO:</span>{{ auth.user.name }} </p>
                             <span class="text-neutral-50 opacity-70">|</span>
                             <Link :href="route('profile.edit')" class="-ml-3">
-                                Modifica Profilo
+                                Profilo
                                 <DynamicHeroicon
                                 name="pencil"
                                 :size="5"
@@ -42,6 +50,14 @@ const { auth, showingSidebar } = storeToRefs(navigation);
                                 Azienda:
                                 </span>
                                 {{ auth.game.name }}
+                            </p>
+                        </div>
+                        <div class="items-center hidden px-4 py-1 space-x-4 text-sm rounded-md text-neutral-50 bg-neutral-50/10 md:flex">
+                            <p>
+                                <span class="mr-2 text-xs opacity-70">
+                                Last gameplay:
+                                </span>
+                                {{ auth.game.updated_at }}
                             </p>
                         </div>
                     </div>

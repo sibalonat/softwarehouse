@@ -18,6 +18,18 @@ class Game extends Model
     ];
 
     /**
+     * Get the attributes that should be cast.
+     *
+     * @return array<string, string>
+     */
+    protected function casts(): array
+    {
+        return [
+            'updated_at' => 'datetime:Y-m-d H:i',
+        ];
+    }
+
+    /**
      * Get the sales relation for the project.
      *
      */

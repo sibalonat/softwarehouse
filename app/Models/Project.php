@@ -53,7 +53,7 @@ class Project extends Model
 
      public function salesperson() : BelongsTo
      {
-        return $this->belongsTo(SalesPerson::class);
+        return $this->belongsTo(SalesPeople::class);
      }
 
     /**

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\SalesPeople;
 use App\Models\SalesPerson;
 use Illuminate\Http\Request;
 
@@ -34,7 +35,7 @@ class SalesPersonController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(SalesPerson $salesPerson)
+    public function show(SalesPeople $salesPerson)
     {
         //
     }
@@ -42,7 +43,7 @@ class SalesPersonController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(SalesPerson $salesPerson)
+    public function edit(SalesPeople $salesPerson)
     {
         //
     }
@@ -50,7 +51,7 @@ class SalesPersonController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, SalesPerson $salesPerson)
+    public function update(Request $request, SalesPeople $salesPerson)
     {
         //
     }
@@ -58,7 +59,7 @@ class SalesPersonController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(SalesPerson $salesPerson)
+    public function destroy(SalesPeople $salesPerson)
     {
         //
     }

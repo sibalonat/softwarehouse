@@ -3,88 +3,91 @@ import { onMounted } from "vue";
 
 import { Link, router, usePage } from "@inertiajs/vue3";
 import Dropdown from "./Dropdown.vue";
-import NavLink from "@/Components/NavLink.vue";
+import MenuLink from "@/Components/MenuLink.vue";
 import { storeToRefs } from "pinia";
 
 import DynamicHeroicon from "./Partials/DynamicHeroIcon.vue";
 import { useNavigationStore } from "@/Stores/NavigationStore";
 import ApplicationLogo from "./ApplicationLogo.vue";
-// import { useNavigationStore } from '@/Stores/NavigationStore';
+import Accordion from "@/Components/Partials/Menu/Accordion.vue";
+import AccordionItem from "@/Components/Partials/Menu/AccordionItem.vue";
 // properties
 const inertia = usePage();
 // pinia
 const menu = useNavigationStore();
 const { NavigateToDashboard } = menu
-const { targets } = storeToRefs(menu);
-
-// props
-const prop = defineProps({
-    open: Boolean,
-});
-
-// methods
+const { targets, auth, nav_links } = storeToRefs(menu);
 
 // hooks
-onMounted(() => {
+onMounted(() => {});
 
-});
 </script>
 <template>
-<div class="fixed top-0 left-0 flex flex-col h-full max-h-full text-left bg-white z-700 v-sid-menu" ref="targets">
-    <div class="flex flex-col w-full p-2 mt-0.5 text-neutral-800">
-        <button class="p-2" @click="NavigateToDashboard" :class="project ? 'seperationXsm' : 'seperationSm'">
-            Logo
-        </button>
-        <div class="border containerPaddingXs border-neutral-200 containerRoundedBase seperation-base">
-            <div class="flex items-center justify-between w-full py-1 pr-2 text-start" :class="project ? 'border-b' : ''" >
-                <p class="py-1 pr-2 buttonSecondaryLight buttonLight">
+<div class="fixed top-0 left-0 flex flex-col h-full max-h-full text-left bg-bg-icon z-700 v-sid-menu" ref="targets">
+    <div class="flex flex-col w-full p-2 mt-0.5">
+        <div class="p-3 border border-b-virtual-blue seperation-base">
+            <div class="flex items-center justify-between w-full px-4 py-1 text-start" >
+                <p class="py-1 pr-2 text-virtual-blue">
                     {{ $page.props.auth.user.name.charAt(0).toUpperCase() + $page.props.auth.user.name.slice(1) }}
                 </p>
-                <button
-                    v-if="!project"
-                    @click="router.get(route('profile.edit'))"
-                    class="px-3 py-0.5 text-sm leading-5 text-center border rounded-full cursor-pointer buttonPrimaryOutline" >
-                    <DynamicHeroicon name="pencil" :size="3" class="inline" />
-                </button>
             </div>
-            <div class="flex items-center justify-between w-full containerPaddingXs" v-if="project">
-                <p class="">Notifiche</p>
-                <button
-                    @click="router.get(route('notifications', [project, inertia.props.auth.user.team.id]))"
-                    class="px-1 text-sm text-center border rounded-full cursor-pointer buttonDanger buttonSecondary buttonSm"
-                    v-if="inertia.props"
-                >
-                    {{ inertia.props.unreadNotificationsCount }}
-                </button>
+            <div class="flex items-center justify-between w-full px-4 py-1 text-virtual-blue">
+                <p>Budget</p>
+                <p class="px-4 pt-1 pb-1 text-sm text-center border rounded-full cursor-pointer border-virtual-blue">
+                    {{ auth.game.balance }} €
+                </p>
             </div>
         </div>
     </div>
-    <div class="relative flex flex-col flex-1">
+    <div class="relative flex flex-col flex-1 bg-virtual-blue">
         <div class="w-full overflow-hidden h-377">
             <div class="h-full overflow-y-auto">
-                <ul class="flex flex-col scroll">
-                    <li v-for="link in navLinks" :key="link" class="text-sm">
-                        <NavLink
-                            :classNames="'py-2'"
-                            v-if="!link.param"
-                            :href="route(link.route)"
-                            :active="route().current(link.route)">
-                            <DynamicHeroicon :name="link.icon" :size="7" class="mr-2 bg-icon " />
-                            {{ link.name }}
-                        </NavLink>
-                        <NavLink
-                            v-else
-                            :classNames="'py-2'"
-                            :href="route(link.route, link.param)"
-                            :active="route().current(link.route, link.param)">
-                            <DynamicHeroicon :name="link.icon" :size="8" class="p-1 mr-2 rounded-md bg-bg-icon" />
-                            <span class="uppercase title">
-                                {{ link.name }}
-                            </span>
-                        </NavLink>
+                <ul class="flex flex-col p-4 text-white scroll">
+                    <li v-for="link in nav_links" :key="link" class="py-2 text-xl">
+                        <Accordion v-if="link.children.length">
+                            <AccordionItem>
+                                <template #accordion-trigger>
+                                    <button class="flex items-center justify-between w-full group" v-if="link.children.length" >
+                                        <p>
+                                            {{ link.title.charAt(0).toUpperCase() + link.title.slice(1) }}
+                                        </p>
+                                        <DynamicHeroicon name="chevron-down" :size="4" class="icon neutral-x-4" outline />
+                                    </button>
+                                </template>
+
+                                <template #accordion-content v-if="link.children.length">
+                                    <div class="flex flex-col w-full mt-2 space-y-3"
+                                    v-if="link.children.length">
+                                        <MenuLink
+                                            v-for="sublink in link.children"
+                                            :key="sublink"
+                                            :condition="false"
+                                            :href="route(sublink.route)"
+                                            :active="route().current(sublink.route)">
+                                            <DynamicHeroicon :name="sublink.icon" :size="5" class="mr-2 text-gray-circles " />
+                                            {{ sublink.title }}
+                                        </MenuLink>
+                                    </div>
+                                </template>
+                            </AccordionItem>
+                        </Accordion>
+
+                        <MenuLink
+                        v-if="!link.children.length"
+                        :href="route(link.route)"
+                        :active="route().current(link.route)">
+                        <DynamicHeroicon :name="link.icon" :size="5" class="mr-2 text-gray-circles" />
+                            {{ link.title }}
+                        </MenuLink>
+                        <MenuLink
+                        v-if="route() === 'logout'"
+                        :href="route(link.route)"
+                        :active="route().current(link.route)">
+                        <DynamicHeroicon :name="link.icon" :size="5" class="mr-2 text-gray-circles" />
+                            {{ link.title }}
+                        </MenuLink>
                     </li>
                 </ul>
-                <hr style="border-color: rgba(0, 0, 0, 0.1); margin: 5px;" v-if="!project">
             </div>
         </div>
     </div>
