@@ -3,7 +3,8 @@ import InputError from '@/Components/InputError.vue';
 import InputLabel from '@/Components/InputLabel.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
-import { useForm, usePage } from '@inertiajs/vue3';
+import { useNavigationStore } from '@/Stores/NavigationStore';
+import { router, useForm, usePage } from '@inertiajs/vue3';
 
 defineProps({
     status: {
@@ -12,14 +13,20 @@ defineProps({
 });
 
 const game = usePage().props.auth.game;
-
+const navigation = useNavigationStore();
+const { gameNameChange } = navigation;
 // form constructor
 const form = useForm({
     name: game.name,
 });
 // methods
-const updateName = () => {
-    form.patch(route('game.updateName', game));
+const updateGameName = () => {
+    form.patch(route('game.updateName', game), {
+        preserveScroll: true,
+        onSuccess: () => {
+            gameNameChange(form.name);
+        },
+    });
 };
 
 </script>
@@ -34,18 +41,17 @@ const updateName = () => {
             </p>
         </header>
 
-        <form @submit.prevent="updateName" class="mt-6 space-y-6">
+        <form @submit.prevent="updateGameName" class="mt-6 space-y-6">
             <div>
-                <InputLabel for="name" value="Name" />
+                <InputLabel for="game_name" value="Name" />
 
                 <TextInput
-                    id="name"
+                    id="game_name"
                     type="text"
                     class="block w-full mt-1"
                     v-model="form.name"
-                    required
                     autofocus
-                    autocomplete="name"
+                    autocomplete="game_name"
                 />
 
                 <InputError class="mt-2" :message="form.errors.name" />

@@ -8,10 +8,12 @@ import { storeToRefs } from 'pinia';
 import Sidebar from '@/Components/Sidebar.vue';
 import HamburgeMenuButton from '@/Components/HamburgeMenuButton.vue';
 
-// const showingNavigationDropdown = ref(false);
+
 const navigation = useNavigationStore();
 const { triggerShow } = navigation;
-const { showingNavigationDropdown, user, showingSidebar, game } = storeToRefs(navigation);
+const { auth, showingSidebar } = storeToRefs(navigation);
+
+
 </script>
 
 <template>
@@ -24,7 +26,7 @@ const { showingNavigationDropdown, user, showingSidebar, game } = storeToRefs(na
                     <div class="flex items-center space-x-3">
                         <HamburgeMenuButton class="-translate-x-2 lg:-translate-x-4" />
                         <div class="items-center hidden px-4 py-1 space-x-2 text-sm rounded-md text-neutral-50 bg-neutral-50/10 md:flex">
-                            <p><span class="mr-2 text-xs opacity-70">CEO:</span>{{ user.name }} </p>
+                            <p><span class="mr-2 text-xs opacity-70">CEO:</span>{{ auth.user.name }} </p>
                             <span class="text-neutral-50 opacity-70">|</span>
                             <Link :href="route('profile.edit')" class="-ml-3">
                                 Modifica Profilo
@@ -39,7 +41,7 @@ const { showingNavigationDropdown, user, showingSidebar, game } = storeToRefs(na
                                 <span class="mr-2 text-xs opacity-70">
                                 Azienda:
                                 </span>
-                                {{ game.name }}
+                                {{ auth.game.name }}
                             </p>
                         </div>
                     </div>

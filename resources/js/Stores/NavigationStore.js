@@ -13,8 +13,7 @@ export const useNavigationStore = defineStore('navigation', () => {
     const targets = ref(null)
 
     // authenticated user
-    const user = usePage().props.auth.user
-    const game = usePage().props.auth.game
+    const auth = usePage().props.auth
 
     // methods
     function triggerShow() {
@@ -43,19 +42,18 @@ export const useNavigationStore = defineStore('navigation', () => {
         }
     }
 
-    function UpdateName() {
-        router.reload({only: ['auth']})
+    function gameNameChange(payload) {
+        auth.game.name = payload
     }
 
 
     return {
-        user,
-        game,
+        auth,
         menu,
         targets,
         showingSidebar,
         showingNavigationDropdown,
-        UpdateName,
         triggerShow,
+        gameNameChange,
     }
 })

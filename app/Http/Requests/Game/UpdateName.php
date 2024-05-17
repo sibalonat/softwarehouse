@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Game;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Log;
 
 class UpdateName extends FormRequest
 {
@@ -21,6 +22,7 @@ class UpdateName extends FormRequest
      */
     public function rules(): array
     {
+        Log::info('UpdateName request rules');
         return [
             'name' => ['required', 'string', 'max:255'],
         ];

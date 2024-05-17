@@ -6,6 +6,7 @@ use App\Models\Game;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\Game\UpdateName;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Redirect;
 
 class GameController extends Controller
@@ -73,6 +74,8 @@ class GameController extends Controller
      public function updateName(UpdateName $request, Game $game) : RedirectResponse
      {
          $request->validated();
+
+         Log::info('Game name updated', ['game' => $game->id]);
 
          $game->name = $request->name;
          $game->save();
