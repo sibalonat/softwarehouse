@@ -22,6 +22,8 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'last_gameplay',
+        'current_gameplay'
     ];
 
     /**
@@ -44,6 +46,8 @@ class User extends Authenticatable
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'last_gameplay' => 'datetime:Y-m-d H:i',
+            'current_gameplay' => 'datetime:Y-m-d H:i',
         ];
     }
 

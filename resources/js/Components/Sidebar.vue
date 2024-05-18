@@ -75,13 +75,7 @@ onMounted(() => {});
                         <MenuLink
                         v-if="!link.children.length"
                         :href="route(link.route)"
-                        :active="route().current(link.route)">
-                        <DynamicHeroicon :name="link.icon" :size="5" class="mr-2 text-gray-circles" />
-                            {{ link.title }}
-                        </MenuLink>
-                        <MenuLink
-                        v-if="route() === 'logout'"
-                        :href="route(link.route)"
+                        :method="link.route === 'logout' ? 'post' : ''"
                         :active="route().current(link.route)">
                         <DynamicHeroicon :name="link.icon" :size="5" class="mr-2 text-gray-circles" />
                             {{ link.title }}

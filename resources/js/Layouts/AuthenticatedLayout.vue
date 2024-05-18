@@ -55,9 +55,17 @@ const { auth, showingSidebar } = storeToRefs(navigation);
                         <div class="items-center hidden px-4 py-1 space-x-4 text-sm rounded-md text-neutral-50 bg-neutral-50/10 md:flex">
                             <p>
                                 <span class="mr-2 text-xs opacity-70">
+                                Current gameplay:
+                                </span>
+                                {{ auth.user.current_gameplay }}
+                            </p>
+                        </div>
+                        <div class="items-center hidden px-4 py-1 space-x-4 text-sm rounded-md text-neutral-50 bg-neutral-50/10 md:flex">
+                            <p>
+                                <span class="mr-2 text-xs opacity-70">
                                 Last gameplay:
                                 </span>
-                                {{ auth.game.updated_at }}
+                                {{ auth.user.last_gameplay }}
                             </p>
                         </div>
                     </div>

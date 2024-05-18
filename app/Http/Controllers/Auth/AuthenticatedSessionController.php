@@ -31,6 +31,10 @@ class AuthenticatedSessionController extends Controller
     {
         $request->authenticate();
 
+        $request->user()->update([
+            'current_gameplay' => now(),
+        ]);
+
         $request->session()->regenerate();
 
         return redirect()->intended(route('dashboard', absolute: false));
@@ -41,6 +45,10 @@ class AuthenticatedSessionController extends Controller
      */
     public function destroy(Request $request): RedirectResponse
     {
+        $request->user()->update([
+            'last_gameplay' => now(),
+        ]);
+
         Auth::guard('web')->logout();
 
         $request->session()->invalidate();
