@@ -9,15 +9,4 @@ Artisan::command('inspire', function () {
     $this->comment(Inspiring::quote());
 })->purpose('Display an inspiring quote')->hourly();
 
-$user = request()->user();
-
-if ($user) {
-    # code...
-    Schedule::job(new CreateProjectsWithRequirementsJob(request()->user()->game()))
-    ->everyMinute()
-    ->when(function () {
-        $user = request()->user()->game();
-        return $user;
-    });
-}
-
+Schedule::job(new CreateProjectsWithRequirementsJob())->everyMinute();
