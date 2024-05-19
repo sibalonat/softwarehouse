@@ -31,36 +31,43 @@ class CreateProjectsWithRequirementsJob implements ShouldQueue
      */
     public function handle(): void
     {
+        // Generate a random number of seconds between 1 minute and 4 hours
+        $randomSeconds = random_int(60, 4 * 60 * 60);
+
+        // Get the current second of the hour
+        $currentSecond = Carbon::now()->second + Carbon::now()->minute * 60;
+
+        // Only run the job if the current second matches the random second
+        if ($currentSecond % $randomSeconds !== 0) {
+            return;
+        }
+
         $complexities = [
             ProjectComplexityAttribute::Low => ['value' => 5000, 'minutes' => 8],
             ProjectComplexityAttribute::Medium => ['value' => 8000, 'minutes' => 21],
             ProjectComplexityAttribute::High => ['value' => 15000, 'minutes' => 55],
         ];
 
-        while (true) {
-            $complexity = array_rand($complexities);
-            $value = $complexities[$complexity]['value'];
-            $minutes = $complexities[$complexity]['minutes'];
+        $complexity = array_rand($complexities);
+        $value = $complexities[$complexity]['value'];
+        $minutes = $complexities[$complexity]['minutes'];
 
-            $project = new Project([
-                'name' => 'Project ' . Str::random(10),
-                'description' => 'Description ' . Str::random(20),
-                'end_date' => Carbon::now()->addMinutes($minutes),
-                'game_id' => $this->game->id,
-                'complexity' => $complexity,
-                'value' => $value,
-                'is_completed' => false,
-            ]);
+        $project = new Project([
+            'name' => 'Project ' . Str::random(10),
+            'description' => 'Description ' . Str::random(20),
+            'end_date' => Carbon::now()->addMinutes($minutes),
+            'game_id' => $this->game->id,
+            'complexity' => $complexity,
+            'value' => $value,
+            'is_completed' => false,
+        ]);
 
+        $project->save();
+
+        // Update the project as completed after the end_date
+        if (Carbon::now()->greaterThanOrEqualTo($project->end_date)) {
+            $project->is_completed = true;
             $project->save();
-
-            sleep(random_int(60, 4 * 60 * 60)); // Sleep for a random time between 1 minute and 4 hours
-
-            // Update the project as completed after the end_date
-            if (Carbon::now()->greaterThanOrEqualTo($project->end_date)) {
-                $project->is_completed = true;
-                $project->save();
-            }
         }
     }
 }
