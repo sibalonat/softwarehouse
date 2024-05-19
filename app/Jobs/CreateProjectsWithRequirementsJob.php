@@ -31,7 +31,7 @@ class CreateProjectsWithRequirementsJob implements ShouldQueue
 
             Log::info('Creating projects for game ' . $game->id);
 
-            $randomSeconds = random_int(60, 4 * 60 * 60);
+            $randomSeconds = random_int(1, 60);
 
             // Get the current second of the hour
             $currentSecond = Carbon::now()->second + Carbon::now()->minute * 60;
