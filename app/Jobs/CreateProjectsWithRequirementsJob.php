@@ -29,8 +29,6 @@ class CreateProjectsWithRequirementsJob implements ShouldQueue
         foreach ($users as $user) {
             $game = $user->game;
 
-            Log::info('Creating projects for game ' . $game->id);
-
             $randomSeconds = random_int(1, 60);
 
             // Get the current second of the hour
@@ -42,9 +40,9 @@ class CreateProjectsWithRequirementsJob implements ShouldQueue
             }
 
             $complexities = [
-                'Low' => ['value' => 5000, 'minutes' => 8],
-                'Medium' => ['value' => 8000, 'minutes' => 21],
-                'High' => ['value' => 15000, 'minutes' => 55],
+                ProjectComplexityAttribute::low->value => ['value' => 5000, 'minutes' => 8],
+                ProjectComplexityAttribute::medium->value => ['value' => 8000, 'minutes' => 21],
+                ProjectComplexityAttribute::high->value => ['value' => 15000, 'minutes' => 55],
             ];
 
             $complexity = array_rand($complexities);

@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('description');
-            $table->foreignId('sales_people_id')->references('id')->on('sales_people')->nullable()->constrained();
+            $table->foreignId('sales_people_id')->nullable()->constrained('sales_people');
             $table->foreignIdFor(\App\Models\Developer::class)->nullable()->constrained();
             $table->foreignIdFor(\App\Models\Game::class)->constrained()->onDelete('cascade');
             $table->enum('complexity', ['low', 'medium', 'high'])->default('low');

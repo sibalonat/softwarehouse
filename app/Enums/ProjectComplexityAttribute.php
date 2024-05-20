@@ -2,9 +2,9 @@
 
 namespace App\Enums;
 
-enum ProjectComplexityAttribute
+enum ProjectComplexityAttribute : string
 {
-    const Low = 'low';
-    const Medium = 'medium';
-    const High = 'high';
+    case low = 'low';
+    case medium = 'medium';
+    case high = 'high';
 }

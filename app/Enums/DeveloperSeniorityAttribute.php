@@ -2,9 +2,9 @@
 
 namespace App\Enums;
 
-enum DeveloperSeniorityAttribute
+enum DeveloperSeniorityAttribute : string
 {
-    const Junior = 'junior';
-    const Middle = 'middle';
-    const Senior = 'senior';
+    case Junior = 'junior';
+    case Middle = 'middle';
+    case Senior = 'senior';
 }
