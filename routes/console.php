@@ -1,5 +1,6 @@
 <?php
 
+use App\Console\Commands\RunJobsCommand;
 use Illuminate\Foundation\Inspiring;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Schedule;
@@ -11,7 +12,6 @@ Artisan::command('inspire', function () {
     $this->comment(Inspiring::quote());
 })->purpose('Display an inspiring quote')->hourly();
 
-// Schedule::job(new CreateProjectsWithRequirementsJob())->withoutOverlapping()->everyFiveSeconds();
-// Schedule::job(new CreateSalesPeopleWithRequirementJob())->withoutOverlapping()->everyFiveSeconds();
-// Schedule::job(new CreateDeveloperWithRequirementJob())->withoutOverlapping()->everyFiveSeconds();
-Schedule::command('run:jobs')->everyMinute();
+
+Schedule::command(RunJobsCommand::class)->everyMinute();
+

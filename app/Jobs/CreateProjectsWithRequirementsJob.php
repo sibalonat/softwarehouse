@@ -25,7 +25,6 @@ class CreateProjectsWithRequirementsJob implements ShouldQueue
     public function handle(): void
     {
         $users = User::all(); // or any query to get the users you want
-
         foreach ($users as $user) {
             $game = $user->game;
 

@@ -1,14 +1,14 @@
 app:
-    primary_host: 127.0.0.1
-    secondary_host: host.docker.internal
-    port: 9191
-    workdir: /var/www/html/
+    primary_host: 192.168.0.5
+    # secondary_host: host.docker.internal
+    # port: 9191
+    # workdir: /var/www/html/
     project_path: /root/work/softwarehouse/
     wsl_config: wsl+Ubuntu/
 config:
     sleep: 0
 observers:
-    auto_invoke_app: true
+    auto_invoke_app: false
     enabled_in_testing: false
     dump: false
     original_dump: true

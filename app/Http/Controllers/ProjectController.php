@@ -13,7 +13,7 @@ class ProjectController extends Controller
     public function index()
     {
         return inertia('Production/ProductionProjectScreen', [
-            'projects' => Project::all()
+            'projects' => Project::paginate(6)->withQueryString(),
         ]);
     }
 

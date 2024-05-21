@@ -31,9 +31,9 @@ class RunJobsCommand extends Command
         $start = now();
 
         while (now()->diffInSeconds($start) < 60) {
-            dispatch(new CreateProjectsWithRequirementsJob());
-            dispatch(new CreateSalesPeopleWithRequirementJob());
-            dispatch(new CreateDeveloperWithRequirementJob());
+            CreateProjectsWithRequirementsJob::dispatch();
+            CreateSalesPeopleWithRequirementJob::dispatch();
+            CreateDeveloperWithRequirementJob::dispatch();
 
             sleep(5);
         }

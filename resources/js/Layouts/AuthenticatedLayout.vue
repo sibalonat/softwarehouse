@@ -19,7 +19,7 @@ const { auth, showingSidebar } = storeToRefs(navigation);
 <template>
     <div>
         <div class="min-h-screen bg-gray-100">
-            <nav class="border-b border-gray-100 bg-virtual-blue">
+            <nav class="w-full border-b border-gray-100 bg-virtual-blue fix">
 
                 <div class="flex items-center justify-between h-12 px-10 containerBase">
                     <!-- ------------------- -->
@@ -89,7 +89,7 @@ const { auth, showingSidebar } = storeToRefs(navigation);
             </nav>
 
             <!-- Page Heading -->
-            <header class="bg-white shadow" v-if="$slots.header">
+            <header class="mt-4 bg-white shadow" v-if="$slots.header">
                 <div class="px-4 py-6 mx-auto max-w-7xl sm:px-6 lg:px-8">
                     <slot name="header" />
                 </div>
