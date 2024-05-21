@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Enums\SalesPersonExperienceAttribute;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -37,7 +38,7 @@ class SalesPeople extends Model
     {
         return [
             'is_busy' => 'boolean',
-            'experience' => 'integer',
+            'experience' => SalesPersonExperienceAttribute::class,
         ];
     }
 }

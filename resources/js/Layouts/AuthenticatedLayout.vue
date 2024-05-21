@@ -44,7 +44,9 @@ const { auth, showingSidebar } = storeToRefs(navigation);
                                 class="inline p-1 my-auto ml-2 bg-white rounded-md text-virtual-blue" />
                             </Link>
                         </div>
-                        <div class="items-center hidden px-4 py-1 space-x-4 text-sm rounded-md text-neutral-50 bg-neutral-50/10 md:flex">
+                        <div
+                        v-if="auth.game.name.length > 1"
+                        class="items-center hidden px-4 py-1 space-x-4 text-sm rounded-md text-neutral-50 bg-neutral-50/10 md:flex">
                             <p>
                                 <span class="mr-2 text-xs opacity-70">
                                 Azienda:
@@ -68,56 +70,18 @@ const { auth, showingSidebar } = storeToRefs(navigation);
                                 {{ auth.user.last_gameplay }}
                             </p>
                         </div>
+                        <div class="items-center hidden px-4 py-1 space-x-4 text-sm rounded-md text-neutral-50 bg-neutral-50/10 md:flex">
+                            <p>
+                                <span class="mr-2 text-xs opacity-70">
+                                Budget:
+                                </span>
+                                {{ auth.game.balance }} €
+                            </p>
+                        </div>
                     </div>
 
                     <div class="flex items-center space-x-2">
-                        <!-- NavLink -->
-                        <!-- <div class="flex items-center !px-0.5 !py-0.5 !bg-neutral-200/20 !text-neutral-50 buttonSm border border-neutral-50/50 space-x-1" v-if="project">
-                            <DynamicHeroicon name="view-columns" class="mr-0"></DynamicHeroicon>
-                            <Link
-                                class="!px-3 !py-0.5 !bg-neutral-50/20 !text-neutral-50 buttonSm hover:!bg-neutral-50/25 hover:text-white flex items-center"
-                                v-if="giornaleLavori"
-                                :href="`${route('contractor.resources', [ project, user.props.auth.user, latestWorkDay ])}?type=generale`"
-                            >
-                                Giornale Lavori
-                            </Link>
-                            <Link
-                                class="!px-3 !py-0.5 !bg-neutral-50/20 !text-neutral-50 buttonSm hover:!bg-neutral-50/25 hover:text-white flex items-center"
-                                v-if="worklog"
-                                :href="`${route('dailywork.log', [project, user.props.auth.user])}?type=lavoratori`"
-                            >
-                                Registro Personale
-                            </Link>
-                            <Link
-                                v-if="isAdmin"
-                                class="!px-3 !py-0.5 !bg-neutral-50/20 !text-neutral-50 buttonSm hover:!bg-neutral-50/25 hover:text-white flex items-center"
-                                :href="route('mask.repeater', [project, project.masks])"
-                            >
-                                Scheda Lavoro
-                            </Link>
 
-                        </div> -->
-                        <!-- <div class="my-auto max-w-fit" v-if="typeDocument !== 'sheet'">
-                            <button type="button" @click="openCloseMenu" class="flex items-center buttonSm buttonSecondary" v-if="project">
-                                <DynamicHeroicon name="folder" class="mr-2"></DynamicHeroicon>
-                                Menu Cartelle
-                            </button>
-                            <div v-else>
-                                <ReturnButton
-                                    icon="home"
-                                    buttonSize="buttonSm"
-                                    :callback="() => !isOnDashboard && router.visit(route('dashboard'))"
-                                    :text="isOnDashboard ? 'Pagina progetti' : 'Pagina progetti'"
-                                    :buttonType="isOnDashboard ? 'buttonTertiary' : 'buttonSecondary'"
-                                    :classNames="
-                                        isOnDashboard
-                                            ? 'opacity-50 cursor-not-allowed !text-neutral-50 transition-all duration-300 ease-in-out'
-                                            : 'buttonSecondary'
-                                    "
-                                    outline
-                                />
-                            </div>
-                        </div> -->
                         <slot name="green-bar-button-right"></slot>
                     </div>
                 </div>

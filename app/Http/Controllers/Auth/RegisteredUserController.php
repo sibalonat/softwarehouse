@@ -8,6 +8,7 @@ use App\Models\User;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
@@ -49,6 +50,8 @@ class RegisteredUserController extends Controller
             'name' => ' ',
             'user_id' => $user->id,
         ]);
+
+        Artisan::call('queue:restart');
 
         event(new Registered($user));
 

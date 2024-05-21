@@ -36,7 +36,9 @@ Route::middleware('auth')->group(function () {
     // production page
     Route::name('production.')->group(function () {
         // projects page
-        Route::resource('/production/projects', ProjectController::class);
+        Route::resource('/production/projects', ProjectController::class)->except([
+            'create', 'store', 'update', 'destroy'
+        ]);
         // developers page
         Route::resource('/production/developers', DeveloperController::class);
     });

@@ -12,7 +12,9 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        //
+        return inertia('Production/ProductionProjectScreen', [
+            'projects' => Project::all()
+        ]);
     }
 
     /**

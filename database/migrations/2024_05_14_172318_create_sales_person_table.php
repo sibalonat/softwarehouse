@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('last_name');
-            $table->integer('experience')->default(0);
+            $table->enum('experience', ['beginner', 'intermediate', 'advanced'])->default('beginner');
             $table->integer('cost')->default(0);
             $table->boolean('is_busy')->default(false);
             $table->timestamps();

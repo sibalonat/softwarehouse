@@ -1,4 +1,4 @@
-import { router, usePage } from '@inertiajs/vue3'
+import { usePage } from '@inertiajs/vue3'
 import { defineStore } from 'pinia'
 import { reactive, ref } from 'vue'
 import anime from 'animejs'
@@ -25,7 +25,6 @@ export const useNavigationStore = defineStore('navigation', () => {
 
     const nav_links = ref(auth.menu)
     nav_links.value.push(logout.value)
-    console.log(nav_links.value);
 
     // accordion data
     const accordion = reactive({

@@ -8,14 +8,12 @@ import { storeToRefs } from "pinia";
 
 import DynamicHeroicon from "./Partials/DynamicHeroIcon.vue";
 import { useNavigationStore } from "@/Stores/NavigationStore";
-import ApplicationLogo from "./ApplicationLogo.vue";
+
 import Accordion from "@/Components/Partials/Menu/Accordion.vue";
 import AccordionItem from "@/Components/Partials/Menu/AccordionItem.vue";
 // properties
-const inertia = usePage();
 // pinia
 const menu = useNavigationStore();
-const { NavigateToDashboard } = menu
 const { targets, auth, nav_links } = storeToRefs(menu);
 
 // hooks
@@ -28,13 +26,7 @@ onMounted(() => {});
         <div class="p-3 border border-b-virtual-blue seperation-base">
             <div class="flex items-center justify-between w-full px-4 py-1 text-start" >
                 <p class="py-1 pr-2 text-virtual-blue">
-                    {{ $page.props.auth.user.name.charAt(0).toUpperCase() + $page.props.auth.user.name.slice(1) }}
-                </p>
-            </div>
-            <div class="flex items-center justify-between w-full px-4 py-1 text-virtual-blue">
-                <p>Budget</p>
-                <p class="px-4 pt-1 pb-1 text-sm text-center border rounded-full cursor-pointer border-virtual-blue">
-                    {{ auth.game.balance }} €
+                    {{ auth.user.name.charAt(0).toUpperCase() + auth.user.name.slice(1) }}
                 </p>
             </div>
         </div>
@@ -51,7 +43,7 @@ onMounted(() => {});
                                         <p>
                                             {{ link.title.charAt(0).toUpperCase() + link.title.slice(1) }}
                                         </p>
-                                        <DynamicHeroicon name="chevron-down" :size="4" class="icon neutral-x-4" outline />
+                                        <DynamicHeroicon name="chevron-down" :size="5" class="icon neutral-x-4" outline />
                                     </button>
                                 </template>
 

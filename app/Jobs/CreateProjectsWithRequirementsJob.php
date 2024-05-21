@@ -40,9 +40,9 @@ class CreateProjectsWithRequirementsJob implements ShouldQueue
             }
 
             $complexities = [
-                ProjectComplexityAttribute::low->value => ['value' => 5000, 'minutes' => 8],
-                ProjectComplexityAttribute::medium->value => ['value' => 8000, 'minutes' => 21],
-                ProjectComplexityAttribute::high->value => ['value' => 15000, 'minutes' => 55],
+                ProjectComplexityAttribute::Low->value => ['value' => 5000, 'minutes' => 8],
+                ProjectComplexityAttribute::Medium->value => ['value' => 8000, 'minutes' => 21],
+                ProjectComplexityAttribute::High->value => ['value' => 15000, 'minutes' => 55],
             ];
 
             $complexity = array_rand($complexities);
