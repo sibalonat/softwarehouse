@@ -13,7 +13,7 @@ class DeveloperController extends Controller
     public function index()
     {
         return inertia('Production/ProductionDeveloperScreen', [
-            'developers' => Developer::all()
+            'developers' => Developer::paginate(6)->withQueryString()
         ]);
     }
 

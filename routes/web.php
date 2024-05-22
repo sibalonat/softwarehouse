@@ -4,10 +4,12 @@ use Inertia\Inertia;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Application;
 use App\Http\Controllers\GameController;
+use App\Http\Controllers\HumanResources;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\DeveloperController;
 use App\Http\Controllers\SalesPersonController;
+use App\Http\Controllers\HumanResourcesController;
 
 Route::get('/', function () {
     return Inertia::render('Welcome', [
@@ -47,7 +49,13 @@ Route::middleware('auth')->group(function () {
     Route::resource('/sales', SalesPersonController::class);
 
     // human resource page
-    Route::get('/hr', [SalesPersonController::class, 'index'])->name('hr');
+    Route::get('/hr/developers', [HumanResourcesController::class, 'developers'])->name('hr.developers');
+    Route::get('/hr/salesforce', [HumanResourcesController::class, 'salesforce'])->name('hr.salesforce');
+
+    // hire sales person
+    Route::put('/hr/salesforce/{salesPerson}/hire', [
+        HumanResourcesController::class, 'hireSalesPerson'
+    ])->name('hr.salesforce.hire');
 
 });
 

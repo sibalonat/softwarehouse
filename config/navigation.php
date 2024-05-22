@@ -33,7 +33,18 @@ return [
             'title' => 'Human Resources',
             'icon' => 'users',
             'route' => 'hr',
-            'children' => [],
+            'children' => [
+                [
+                    'title' => 'Developers',
+                    'route' => 'production.projects.index',
+                    'icon' => 'bars-arrow-up',
+                ],
+                [
+                    'title' => 'Salesforce',
+                    'route' => 'hr.salesforce',
+                    'icon' => 'globe-europe-africa',
+                ],
+            ],
         ],
     ]
 ];

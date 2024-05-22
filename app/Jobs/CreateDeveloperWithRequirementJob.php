@@ -56,7 +56,7 @@ class CreateDeveloperWithRequirementJob implements ShouldQueue
             $developer = new Developer([
                 'name' => 'first_name ' . Str::random(10),
                 'last_name' => 'last_name ' . Str::random(10),
-                'experience' => $experience,
+                'seniority' => $experience,
                 'cost' => $value,
             ]);
 

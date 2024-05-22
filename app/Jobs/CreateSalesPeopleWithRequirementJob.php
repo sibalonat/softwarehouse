@@ -39,7 +39,8 @@ class CreateSalesPeopleWithRequirementJob implements ShouldQueue
             // Get the current second of the hour
             $currentSecond = Carbon::now()->second + Carbon::now()->minute * 60;
 
-            
+            ds($currentSecond, $randomSeconds);
+
 
             // Only run the job if the current second matches the random second
             if ($currentSecond % $randomSeconds !== 0) {
