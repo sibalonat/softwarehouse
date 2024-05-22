@@ -6,6 +6,9 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head, router } from '@inertiajs/vue3';
 import Toggle from "@/Components/Form/Toggle.vue";
 import { storeToRefs } from 'pinia';
+import { onMounted } from 'vue';
+import { onBeforeMount } from 'vue';
+import { computed } from 'vue';
 
 // props
 const props = defineProps({
@@ -15,13 +18,29 @@ const props = defineProps({
     },
 });
 
-useFormAttributeStores;
-
+// stores
 const form = useFormAttributeStores();
 const { sendRequest, setUpData } = form;
-const { classesForToggle, hiredBoolean } = storeToRefs(form);
+const { hiredBoolean } = storeToRefs(form);
 
 // computed
+
+const classesForToggle = computed(() => {
+    return {
+        container: 'inline-block rounded-full outline-none focus:ring focus:ring-neutral-100 focus:ring-opacity-0',
+        toggle: 'flex h-5 w-12 rounded-full relative cursor-pointer transition items-center box-content border-2 text-xs leading-none',
+        toggleOn: 'bg-neutral-500 border-neutral-100 justify-start text-white',
+        toggleOff: 'bg-gray-200 border-gray-200 justify-end text-gray-700',
+        toggleOnDisabled: 'bg-gray-300 border-gray-300 justify-start text-gray-400 cursor-not-allowed',
+        toggleOffDisabled: 'bg-gray-200 border-gray-200 justify-end text-gray-400 cursor-not-allowed',
+        handle: 'inline-block bg-white w-5 h-5 top-0 rounded-full absolute transition-all',
+        handleOn: 'left-full transform -translate-x-full',
+        handleOff: 'left-0',
+        handleOnDisabled: 'bg-gray-100 left-full transform -translate-x-full',
+        handleOffDisabled: 'bg-gray-100 left-0',
+        label: 'text-center w-8 border-box whitespace-nowrap select-none',
+    }
+});
 
 //methods
 const goToPage = (e) => {
@@ -33,27 +52,8 @@ const goToPage = (e) => {
     }
 }
 
-// const sendRequest = (c, e) => {
-//     let i = 0;
-//     i++;
-//     if (i > 0) {
-//         console.log(c);
-//         // router.put(
-//         //     route("document.mapp", c),
-//         //     {
-//         //         e,
-//         //     },
-//         //     {
-//         //         onFinish: (visit) => {
-//         //             router.reload({ only: ["category"] });
-//         //         },
-//         //     }
-//         // );
-//     }
-// };
-
 // hooks
-onMounted(() => {
+onBeforeMount(() => {
     setUpData(props.salesforce);
 });
 
@@ -106,7 +106,7 @@ onMounted(() => {
                                     </tr>
                                 </thead>
                                 <tbody class="divide-y divide-gray-200">
-                                    <tr v-for="(index, person) in salesforce.data" :key="person.id">
+                                    <tr v-for="(person, index) in salesforce.data" :key="person.id">
                                     <td class="px-6 py-4 text-sm font-medium text-gray-800 whitespace-nowrap">
                                         {{ person.name }} {{ person.last_name }}
                                     </td>
@@ -125,9 +125,11 @@ onMounted(() => {
                                         {{ person.is_busy }}
                                     </td>
                                     <td class="px-6 py-4 text-sm font-medium whitespace-nowrap text-end">
+                                        <!--  -->
+                                        <!-- {{ classesForToggle }} -->
                                         <Toggle
+                                        v-model="hiredBoolean.data[index].hired"
                                         :classes="classesForToggle"
-                                        v-model="hiredBoolean[index].hired"
                                         :true-value="1"
                                         :false-value="0"
                                         @change="sendRequest(person, $event, 'hr.salesforce.hire', 'salesforce')" />

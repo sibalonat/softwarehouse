@@ -32,7 +32,7 @@ class Project extends Model
     {
         return [
             'is_completed' => 'boolean',
-            'end_date' => 'datetime:Y-m-d',
+            'end_date' => 'datetime:Y-m-d H:i',
             'complexity' => ProjectComplexityAttribute::class,
         ];
     }

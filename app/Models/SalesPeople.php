@@ -13,6 +13,7 @@ class SalesPeople extends Model
 
     protected $fillable = [
         'cost',
+        'hired',
         'name',
         'is_busy',
         'last_name',
@@ -38,6 +39,7 @@ class SalesPeople extends Model
     {
         return [
             'is_busy' => 'boolean',
+            'hired' => 'boolean',
             'experience' => SalesPersonExperienceAttribute::class,
         ];
     }

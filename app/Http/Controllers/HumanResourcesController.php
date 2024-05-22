@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\SalesForce\HireSalesPerson;
+use App\Models\Developer;
 use App\Models\SalesPeople;
 use Illuminate\Http\Request;
 
@@ -10,7 +11,9 @@ class HumanResourcesController extends Controller
 {
     public function developers()
     {
-        return inertia('HumanResources/HRScreenDevelopers');
+        return inertia('HumanResources/HRScreenDevelopers', [
+            'developers' => Developer::paginate(6)->withQueryString()
+        ]);
     }
 
     public function salesforce()

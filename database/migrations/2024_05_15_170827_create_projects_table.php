@@ -21,7 +21,7 @@ return new class extends Migration
             $table->enum('complexity', ['low', 'medium', 'high'])->default('low');
             $table->boolean('is_completed')->default(false);
             $table->integer('value')->default(0);
-            $table->date('end_date');
+            $table->dateTime('end_date');
             $table->timestamps();
         });
     }

@@ -24,27 +24,26 @@ return [
             ],
         ],
         [
-            'title' => 'Sales',
-            'icon' => 'presentation-chart-line',
-            'route' => 'sales.index',
-            'children' => [],
-        ],
-        [
             'title' => 'Human Resources',
-            'icon' => 'users',
-            'route' => 'hr',
+            'icon' => '',
             'children' => [
                 [
                     'title' => 'Developers',
-                    'route' => 'production.projects.index',
-                    'icon' => 'bars-arrow-up',
+                    'route' => 'hr.developers',
+                    'icon' => 'ellipsis-vertical',
                 ],
                 [
                     'title' => 'Salesforce',
                     'route' => 'hr.salesforce',
-                    'icon' => 'globe-europe-africa',
+                    'icon' => 'ellipsis-vertical',
                 ],
             ],
+        ],
+        [
+            'title' => 'Sales',
+            'icon' => 'users',
+            'route' => 'sales.index',
+            'children' => [],
         ],
     ]
 ];

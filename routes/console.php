@@ -11,6 +11,4 @@ Artisan::command('inspire', function () {
 })->purpose('Display an inspiring quote')->hourly();
 
 
-
-Schedule::command(RunJobsCommand::class)->everyThirtySeconds();
-Schedule::job(new SalesPersonOnboardsTheProject())->withoutOverlapping()->everyMinute();
+Schedule::command(RunJobsCommand::class)->everyMinute();

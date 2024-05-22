@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Project;
 use App\Models\Developer;
 use Illuminate\Http\Request;
 
@@ -13,7 +14,8 @@ class DeveloperController extends Controller
     public function index()
     {
         return inertia('Production/ProductionDeveloperScreen', [
-            'developers' => Developer::paginate(6)->withQueryString()
+            'developers' => Developer::paginate(6)->withQueryString(),
+            'projects' => Project::query()->get()
         ]);
     }
 

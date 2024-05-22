@@ -4,7 +4,7 @@ use Inertia\Inertia;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Application;
 use App\Http\Controllers\GameController;
-use App\Http\Controllers\HumanResources;
+
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\DeveloperController;
@@ -56,6 +56,10 @@ Route::middleware('auth')->group(function () {
     Route::put('/hr/salesforce/{salesPerson}/hire', [
         HumanResourcesController::class, 'hireSalesPerson'
     ])->name('hr.salesforce.hire');
+    // hire developer
+    Route::put('/hr/developers/{developer}/hire', [
+        HumanResourcesController::class, 'hireDeveloper'
+    ])->name('hr.developer.hire');
 
 });
 

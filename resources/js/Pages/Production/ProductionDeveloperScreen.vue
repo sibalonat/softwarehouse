@@ -12,6 +12,10 @@ const props = defineProps({
         type: Object,
         required: true,
     },
+    projects: {
+        type: Object,
+        required: true,
+    },
 });
 
 //methods
@@ -24,8 +28,10 @@ const goToPage = (e) => {
     }
 }
 
-Accordion
-AccordionItem
+// hooks
+onMounted(() => {
+    console.log(props.projects);
+});
 
 
 </script>
@@ -77,7 +83,7 @@ AccordionItem
                                     <div class="flex">
                                         <p>{{ developer.is_busy }}</p>
                                     </div>
-                                    <Accordion v-if="link.children.length">
+                                    <!-- <Accordion v-if="link.children.length">
                                         <AccordionItem>
                                             <template #accordion-trigger>
                                                 <button class="flex items-center justify-between w-full group" v-if="link.children.length" >
@@ -88,14 +94,13 @@ AccordionItem
                                                 </button>
                                             </template>
 
-                                            <template #accordion-content v-if="link.children.length">
-                                                <div class="flex flex-col w-full mt-2 space-y-3"
-                                                v-if="link.children.length">
+                                            <template #accordion-content>
+                                                <div class="flex flex-col w-full mt-2 space-y-3">
 
                                                 </div>
                                             </template>
                                         </AccordionItem>
-                                    </Accordion>
+                                    </Accordion> -->
                                 </div>
 
                                 <div class="w-full px-4 py-3">

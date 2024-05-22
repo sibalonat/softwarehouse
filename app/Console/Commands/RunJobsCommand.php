@@ -3,10 +3,12 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
+use App\Jobs\SalesPersonOnboardsTheProject;
 use App\Jobs\CreateDeveloperWithRequirementJob;
 use App\Jobs\CreateProjectsWithRequirementsJob;
+use App\Jobs\DeleteProjectsWithoutDevelopersJob;
 use App\Jobs\CreateSalesPeopleWithRequirementJob;
-use App\Jobs\SalesPersonOnboardsTheProject;
+use App\Jobs\DeleteDevelopersThatHaveLongCreatedJob;
 
 class RunJobsCommand extends Command
 {
@@ -31,13 +33,18 @@ class RunJobsCommand extends Command
     {
         $start = now();
 
-        ds('Starting jobs');
-
         while (now()->diffInSeconds($start) < 60) {
-            ds('Running jobs every five seconds');
+
             CreateProjectsWithRequirementsJob::dispatch();
             CreateSalesPeopleWithRequirementJob::dispatch();
             CreateDeveloperWithRequirementJob::dispatch();
+
+            SalesPersonOnboardsTheProject::dispatch();
+
+            // delete projects without developers
+            DeleteProjectsWithoutDevelopersJob::dispatch();
+            // delete developers that have long created job
+            DeleteDevelopersThatHaveLongCreatedJob::dispatch();
 
             sleep(5);
         }
