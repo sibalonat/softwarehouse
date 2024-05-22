@@ -41,11 +41,6 @@ class RunJobsCommand extends Command
 
             SalesPersonOnboardsTheProject::dispatch();
 
-            // delete projects without developers
-            DeleteProjectsWithoutDevelopersJob::dispatch();
-            // delete developers that have long created job
-            DeleteDevelopersThatHaveLongCreatedJob::dispatch();
-
             sleep(5);
         }
     }

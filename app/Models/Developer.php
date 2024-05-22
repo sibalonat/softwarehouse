@@ -17,6 +17,7 @@ class Developer extends Model
         'name',
         'last_name',
         'cost',
+        'hired',
         'seniority',
         'is_busy',
     ];

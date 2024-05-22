@@ -74,43 +74,42 @@ onBeforeMount(() => {
                     <div class="flex flex-col">
                         <div class="-m-1.5 overflow-x-auto">
                             <div class="p-1.5 min-w-full inline-block align-middle">
-                            <div class="overflow-hidden">
+                            <div class="p-10 overflow-hidden">
                                 <table class="min-w-full divide-y divide-gray-200">
-                                <thead>
-                                    <tr>
-                                    <th
-                                    scope="col"
-                                    class="px-6 py-3 text-xs font-medium text-gray-500 uppercase text-start">
-                                        Name Surname
-                                    </th>
-                                    <th
-                                    scope="col"
-                                    class="px-6 py-3 text-xs font-medium text-gray-500 uppercase text-start">
-                                        Experience
-                                    </th>
-                                    <th
-                                    scope="col"
-                                    class="px-6 py-3 text-xs font-medium text-gray-500 uppercase text-start">
-                                        Cost
-                                    </th>
-                                    <th
-                                    scope="col"
-                                    class="px-6 py-3 text-xs font-medium text-gray-500 uppercase text-start">
-                                        Is busy
-                                    </th>
-                                    <th
-                                    scope="col"
-                                    class="px-6 py-3 text-xs font-medium text-gray-500 uppercase text-end">
-                                        Hire
-                                    </th>
+                                <thead class="bg-neutral-300">
+                                    <tr class="font-semibold">
+                                        <th
+                                        scope="col"
+                                        class="px-6 py-3 text-sm text-gray-500 uppercase text-start">
+                                            Name Surname
+                                        </th>
+                                        <th
+                                        scope="col"
+                                        class="px-6 py-3 text-sm text-center text-gray-500 uppercase">
+                                            Experience
+                                        </th>
+                                        <th
+                                        scope="col"
+                                        class="px-6 py-3 text-sm text-center text-gray-500 uppercase">
+                                            Cost
+                                        </th>
+                                        <th
+                                        scope="col"
+                                        class="px-6 py-3 text-sm font-medium text-center text-gray-500 uppercase">
+                                            Is busy
+                                        </th>
+                                        <th
+                                        scope="col"
+                                        class="px-6 py-3 text-sm font-medium text-gray-500 uppercase text-end">
+                                            Hire
+                                        </th>
                                     </tr>
                                 </thead>
-                                <tbody class="divide-y divide-gray-200">
+                                <tbody class="divide-y divide-neutral-300">
                                     <tr v-for="(person, index) in developers.data" :key="person.id">
                                     <td class="px-6 py-4 text-sm font-medium text-gray-800 whitespace-nowrap">
                                         {{ person.name }} {{ person.last_name }}
                                     </td>
-
                                     <td class="px-6 py-4 font-light whitespace-nowrap">
                                         <div class="text-center capitalize rounded-md"
                                         :class="person.seniority == 'junior' ?
@@ -119,19 +118,19 @@ onBeforeMount(() => {
                                             {{ person.seniority }}
                                         </div>
                                     </td>
-                                    <td class="px-6 py-4 text-sm text-gray-800 whitespace-nowrap">
+                                    <td class="px-6 py-4 text-sm text-center text-gray-800 whitespace-nowrap">
                                         {{ person.cost }}
                                     </td>
-                                    <td class="px-6 py-4 text-sm text-gray-800 text-medium whitespace-nowrap">
+                                    <td class="px-6 py-4 text-sm text-center text-gray-800 uppercase text-medium whitespace-nowrap">
                                         {{ person.is_busy }}
                                     </td>
-                                    <td class="px-6 py-4 text-sm font-medium whitespace-nowrap text-end">
+                                    <td class="py-4 pl-6 text-sm font-medium whitespace-nowrap text-end">
                                         <Toggle
                                         v-model="hiredBoolean.data[index].hired"
                                         :classes="classesForToggle"
                                         :true-value="1"
                                         :false-value="0"
-                                        @change="sendRequest(person, $event, 'hr.salesforce.hire', 'salesforce')" />
+                                        @change="sendRequest(person, $event, 'hr.developer.hire', 'developers')" />
                                     </td>
                                     </tr>
                                 </tbody>

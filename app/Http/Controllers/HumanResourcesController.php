@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Developers\HireDeveloper;
 use App\Http\Requests\SalesForce\HireSalesPerson;
 use App\Models\Developer;
 use App\Models\SalesPeople;
@@ -29,5 +30,13 @@ class HumanResourcesController extends Controller
         $salesPerson->update($data);
 
         return redirect()->route('hr.salesforce');
+    }
+
+    public function hireDeveloper(Developer $developer, HireDeveloper $request)
+    {
+        $data = $request->validated();
+        $developer->update($data);
+
+        return redirect()->route('hr.developers');
     }
 }

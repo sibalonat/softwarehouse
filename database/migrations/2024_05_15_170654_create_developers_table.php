@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('last_name');
             $table->enum('seniority', ['junior', 'middle', 'senior'])->default('junior');
             $table->integer('cost')->default(0);
+            $table->boolean('hired')->default(false);
             $table->boolean('is_busy')->default(false);
             $table->timestamps();
         });

@@ -50,7 +50,7 @@ onMounted(() => {
                     <div class="flex flex-col">
                         <div class="-m-1.5 overflow-x-auto">
                             <div class="p-1.5 min-w-full inline-block align-middle">
-                            <div class="overflow-hidden">
+                            <div class="p-10 overflow-hidden">
 
                                 <div class="grid grid-cols-4 p-4 gap-x-4">
                                     <p class="flex">

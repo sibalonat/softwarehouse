@@ -12,6 +12,7 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use App\Enums\SalesPersonExperienceAttribute;
+use Faker\Factory as Faker;
 
 class CreateSalesPeopleWithRequirementJob implements ShouldQueue
 {
@@ -22,6 +23,8 @@ class CreateSalesPeopleWithRequirementJob implements ShouldQueue
      */
     public function handle(): void
     {
+        $faker = Faker::create();
+
         $users = User::all(); // or any query to get the users you want
 
         foreach ($users as $user) {
@@ -46,8 +49,8 @@ class CreateSalesPeopleWithRequirementJob implements ShouldQueue
             $value = $experiences[$experience]['cost'];
 
             $salesperson = new SalesPeople([
-                'name' => 'first_name ' . Str::random(10),
-                'last_name' => 'last_name ' . Str::random(10),
+                'name' => $faker->firstName,
+                'last_name' => $faker->lastName,
                 'experience' => $experience,
                 'cost' => $value,
             ]);
