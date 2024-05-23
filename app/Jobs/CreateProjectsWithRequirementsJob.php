@@ -13,7 +13,7 @@ use Illuminate\Queue\InteractsWithQueue;
 use App\Enums\ProjectComplexityAttribute;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
-use Illuminate\Support\Facades\Log;
+use Faker\Factory as Faker;
 
 class CreateProjectsWithRequirementsJob implements ShouldQueue
 {
@@ -24,6 +24,9 @@ class CreateProjectsWithRequirementsJob implements ShouldQueue
      */
     public function handle(): void
     {
+        // generate project name and description
+        $faker = Faker::create();
+
         $users = User::all(); // or any query to get the users you want
         foreach ($users as $user) {
             $game = $user->game;
@@ -47,10 +50,12 @@ class CreateProjectsWithRequirementsJob implements ShouldQueue
             $complexity = array_rand($complexities);
             $value = $complexities[$complexity]['value'];
             $minutes = $complexities[$complexity]['minutes'];
+            $projectName = implode(' ', $faker->words(2));
+            $projectDescription = implode(' ', $faker->words(3));
 
             $project = new Project([
-                'name' => 'Project ' . Str::random(10),
-                'description' => 'Description ' . Str::random(20),
+                'name' => Str::ucfirst($projectName),
+                'description' => Str::ucfirst($projectDescription),
                 'end_date' => Carbon::now()->addMinutes($minutes),
                 'game_id' => $game->id,
                 'complexity' => $complexity,

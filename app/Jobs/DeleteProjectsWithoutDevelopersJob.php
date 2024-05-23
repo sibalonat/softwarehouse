@@ -18,11 +18,11 @@ class DeleteProjectsWithoutDevelopersJob implements ShouldQueue
      */
     public function handle(): void
     {
-        $tenSecondsBefore = now()->subHours(1);
+        $oneHourFromEndTime = now()->subHours(1);
 
         Project::whereNull('developer_id')
             ->whereNull('sales_people_id')
-            ->where('end_date', '>=', $tenSecondsBefore)
+            ->where('end_date', '>=', $oneHourFromEndTime)
             ->delete();
     }
 }

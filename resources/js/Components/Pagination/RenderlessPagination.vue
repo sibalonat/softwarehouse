@@ -172,11 +172,11 @@ const selectPage = (page) => {
     </div>
 
     <nav
-    class="grid w-full grid-cols-12 rounded-md shadow-sm isolate"
+    class="grid w-11/12 pb-4 pl-4 mx-auto rounded-md shadow-sm grid-cols-18 isolate gap-x-4"
     aria-label="Pagination"
     v-if="total > perPage">
             <button
-                class="relative inline-flex items-center px-4 py-2 text-sm font-medium border focus:z-20"
+                class="relative items-center px-4 py-2 text-sm font-medium text-center border rounded-full focus:z-20"
                 :class="[
                     page == currentPage ? activeClasses : itemClasses,
                     page == currentPage ? 'z-30' : '',

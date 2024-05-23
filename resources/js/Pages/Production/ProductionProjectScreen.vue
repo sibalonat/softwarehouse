@@ -41,16 +41,36 @@ const goToPage = (e) => {
                             <div class="p-1.5 min-w-full inline-block align-middle">
                             <div class="p-10 overflow-hidden">
                                 <table class="min-w-full divide-y divide-gray-200">
-                                <thead>
-                                    <tr>
-                                    <th scope="col" class="px-6 py-3 text-xs font-medium text-gray-500 uppercase text-start">Project</th>
-                                    <th scope="col" class="px-6 py-3 text-xs font-medium text-gray-500 uppercase text-start">Complexity</th>
-                                    <th scope="col" class="px-6 py-3 text-xs font-medium text-gray-500 uppercase text-start">Is Completed</th>
-                                    <th scope="col" class="px-6 py-3 text-xs font-medium text-gray-500 uppercase text-start">End date</th>
-                                    <th scope="col" class="px-6 py-3 text-xs font-medium text-gray-500 uppercase text-end">Pending</th>
+                                <thead class="bg-neutral-300">
+                                    <tr class="font-semibold">
+                                        <th
+                                        scope="col"
+                                        class="px-6 py-3 text-sm text-gray-500 uppercase text-start">
+                                            Project
+                                        </th>
+                                        <th
+                                        scope="col"
+                                        class="px-6 py-3 text-sm text-center text-gray-500 uppercase">
+                                            Complexity
+                                        </th>
+                                        <th
+                                        scope="col"
+                                        class="px-6 py-3 text-sm font-medium text-center text-gray-500 uppercase">
+                                            Is Completed
+                                        </th>
+                                        <th
+                                        scope="col"
+                                        class="px-6 py-3 text-sm text-gray-500 uppercase text-start">
+                                            End date
+                                        </th>
+                                        <th
+                                        scope="col"
+                                        class="px-6 py-3 text-sm font-medium text-gray-500 uppercase text-end">
+                                            Pending
+                                        </th>
                                     </tr>
                                 </thead>
-                                <tbody class="divide-y divide-gray-200">
+                                <tbody class="divide-y divide-neutral-300">
                                     <tr v-for="project in projects.data" :key="project.id">
                                     <td class="px-6 py-4 text-sm font-medium text-gray-800 whitespace-nowrap">
                                         {{ project.name }}
@@ -64,7 +84,7 @@ const goToPage = (e) => {
                                             {{ project.complexity }}
                                         </div>
                                     </td>
-                                    <td class="px-6 py-4 text-sm text-gray-800 whitespace-nowrap">
+                                    <td class="px-6 py-4 text-sm text-center text-gray-800 uppercase whitespace-nowrap">
                                         {{ project.is_completed }}
                                     </td>
                                     <td class="px-6 py-4 text-sm text-gray-800 text-medium whitespace-nowrap">

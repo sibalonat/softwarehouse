@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\Enums\DeveloperSeniorityAttribute;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Developer extends Model
@@ -45,11 +46,14 @@ class Developer extends Model
         ];
     }
 
+
     /**
-     * Get the comments for the blog post.
+     * Get the user associated with the Developer
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
-    public function projects() : HasMany
+    public function project(): HasOne
     {
-        return $this->hasMany(Project::class);
+        return $this->hasOne(Project::class);
     }
 }

@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Requests\Game;
+namespace App\Http\Requests\Project;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Facades\Log;
+use Illuminate\Validation\Rule;
 
-class UpdateName extends FormRequest
+class AssignDeveloperToProject extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,7 +23,8 @@ class UpdateName extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['required', 'string', 'max:255'],
+            'developer_id' => ['required', 'integer', Rule::exists('developers', 'id')],
+            'project_id' => ['required', 'integer', Rule::exists('projects', 'id')],
         ];
     }
 }

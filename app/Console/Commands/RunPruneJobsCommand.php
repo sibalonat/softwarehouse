@@ -28,7 +28,6 @@ class RunPruneJobsCommand extends Command
      */
     public function handle()
     {
-        ds('Running prune jobs');
         // delete projects without developers
         DeleteProjectsWithoutDevelopersJob::dispatch();
         // delete developers that have long created job

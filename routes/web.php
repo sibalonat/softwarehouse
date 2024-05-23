@@ -39,10 +39,12 @@ Route::middleware('auth')->group(function () {
     Route::name('production.')->group(function () {
         // projects page
         Route::resource('/production/projects', ProjectController::class)->except([
-            'create', 'store', 'update', 'destroy'
+            'create', 'store', 'destroy'
         ]);
         // developers page
-        Route::resource('/production/developers', DeveloperController::class);
+        Route::resource('/production/developers', DeveloperController::class)->except([
+            'create', 'store', 'destroy'
+        ]);
     });
 
     // sales page

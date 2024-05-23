@@ -13,9 +13,14 @@ class DeveloperController extends Controller
      */
     public function index()
     {
+        $projects = Project::query()
+        ->whereNotNull('sales_people_id')
+        ->whereNull('developer_id')
+        ->get()
+        ->toLabelValueArray('name', 'id');
         return inertia('Production/ProductionDeveloperScreen', [
-            'developers' => Developer::paginate(6)->withQueryString(),
-            'projects' => Project::query()->get()
+            'developers' => Developer::with('project')->paginate(6)->withQueryString(),
+            'projects' => $projects
         ]);
     }
 
@@ -56,7 +61,7 @@ class DeveloperController extends Controller
      */
     public function update(Request $request, Developer $developer)
     {
-        //
+        ds($request->all());
     }
 
     /**
