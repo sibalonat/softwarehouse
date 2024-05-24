@@ -35,6 +35,7 @@ class HandleInertiaRequests extends Middleware
                 'user' => $request->user(),
                 'game' => $request->user()?->game,
                 'menu' => config('navigation.menu'),
+                'menu_footer' => config('navigation.menu_footer'),
             ],
         ];
     }

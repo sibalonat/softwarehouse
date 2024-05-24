@@ -110,6 +110,20 @@ const { auth, showingSidebar } = storeToRefs(navigation);
             <main>
                 <slot />
             </main>
+            <footer class="w-full fixed bottom-0 bg-virtual-blue py-2">
+                <div class="mx-auto w-1/3 grid grid grid-cols-3 ">
+
+                    <Link
+                    :href="route(link.route)"
+                    v-for="link in auth.menu_footer"
+                    :key="link"
+                    :class="route().current(link.route) ? 'bg-slate-50 text-virtual-blue rounded-md' : 'text-slate-50'"
+                    class="py-2 text-center font-semibold text-lg uppercase">
+                        {{ link.title }}
+                    </Link>
+
+                </div>
+            </footer>
         </div>
     </div>
 </template>

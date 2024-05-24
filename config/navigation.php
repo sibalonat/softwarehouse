@@ -45,5 +45,19 @@ return [
             'route' => 'sales.index',
             'children' => [],
         ],
+    ],
+    'menu_footer' => [
+        [
+            'title' => 'Projects',
+            'route' => 'production.projects.index',
+        ],
+        [
+            'title' => 'Sales',
+            'route' => 'sales.index',
+        ],
+        [
+            'title' => 'HR',
+            'route' => 'hr.developers',
+        ],
     ]
 ];

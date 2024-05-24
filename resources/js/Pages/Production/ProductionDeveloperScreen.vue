@@ -91,7 +91,7 @@ onMounted(() => console.log(props.projects));
                             <div class="p-10 overflow-hidden">
                                 <!-- class="bg-neutral-300" -->
 
-                                <div class="grid grid-cols-5 p-4 gap-x-4 bg-neutral-300">
+                                <div class="grid grid-cols-5 px-3 py-1 gap-x-4 bg-neutral-300">
                                     <p class="flex py-3 text-sm text-gray-500 uppercase text-start">
                                         Name
                                     </p>
@@ -112,7 +112,7 @@ onMounted(() => console.log(props.projects));
                                 <div
                                     v-for="(developer, index) in developers.data"
                                     :key="developer.id"
-                                    class="grid grid-cols-5 p-4 gap-x-4">
+                                    class="grid grid-cols-5 px-3 py-2 gap-x-4">
                                     <div class="flex pr-6 py-3 text-sm text-gray-500 uppercase text-start">
                                         <p>{{ developer.name }}</p>
                                     </div>
