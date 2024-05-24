@@ -31,8 +31,6 @@ class RunJobsCommand extends Command
     {
         $start = now();
 
-        ds(auth()->user());
-
         while (now()->diffInSeconds($start) < 60) {
 
             CreateProjectsWithRequirementsJob::dispatch();

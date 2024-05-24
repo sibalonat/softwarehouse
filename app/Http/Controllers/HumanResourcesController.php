@@ -13,14 +13,14 @@ class HumanResourcesController extends Controller
     public function developers()
     {
         return inertia('HumanResources/HRScreenDevelopers', [
-            'developers' => Developer::paginate(6)->withQueryString()
+            'developers' => Developer::paginate(5)->withQueryString()
         ]);
     }
 
     public function salesforce()
     {
         return inertia('HumanResources/HRScreenSalesPeople', [
-            'salesforce' => SalesPeople::paginate(6)->withQueryString()
+            'salesforce' => SalesPeople::paginate(5)->withQueryString()
         ]);
     }
 

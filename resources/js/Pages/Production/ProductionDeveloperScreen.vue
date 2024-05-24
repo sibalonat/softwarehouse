@@ -21,7 +21,7 @@ const props = defineProps({
 });
 
 // properties
-const submitForm = ref(null);
+const submitForm = ref([]);
 
 // computed
 const developerprojects = computed(() => {
@@ -44,11 +44,16 @@ const goToPage = (e) => {
 
 const form = useForm()
 const submitHandler = (fields, node) => {
+    if (fields['project_id'] === null) {
+        return;
+    }
     form.put(route('production.projects.update', fields['project_id']))(fields, node)
 }
 
-const changeHandler = (index) => {
-    submitForm.value[index].node.submit()
+const changeHandler = () => {
+    submitForm.value.forEach(element => {
+        element.node.submit()
+    });
 }
 
 // check if it can show
@@ -63,9 +68,8 @@ const canShow = () => {
 }
 
 
-
 // hooks
-onMounted(() => {});
+onMounted(() => console.log(props.projects));
 
 
 </script>
@@ -128,7 +132,7 @@ onMounted(() => {});
                                         <AccordionItem>
                                             <template #accordion-trigger>
                                                 <button class="flex items-end justify-between w-full group" >
-                                                    Assign project
+                                                    Assign project {{ index }}
                                                 </button>
                                             </template>
 
@@ -142,7 +146,7 @@ onMounted(() => {});
                                                     :plugins="[form.plugin]">
                                                         <FormKit
                                                         type="select"
-                                                        @change="changeHandler(index)"
+                                                        @change="changeHandler"
                                                         name="project_id"
                                                         :classes="{
                                                             label: '$reset w-full text-sm font-normal text-neutral-500',

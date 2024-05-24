@@ -19,7 +19,7 @@ class DeveloperController extends Controller
         ->get()
         ->toLabelValueArray('name', 'id');
         return inertia('Production/ProductionDeveloperScreen', [
-            'developers' => Developer::with('project')->paginate(6)->withQueryString(),
+            'developers' => Developer::with('project')->paginate(5)->withQueryString(),
             'projects' => $projects
         ]);
     }
@@ -61,7 +61,7 @@ class DeveloperController extends Controller
      */
     public function update(Request $request, Developer $developer)
     {
-        ds($request->all());
+        //
     }
 
     /**
