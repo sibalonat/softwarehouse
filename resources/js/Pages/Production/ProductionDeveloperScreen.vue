@@ -7,6 +7,7 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head, router } from '@inertiajs/vue3';
 import { onMounted, ref } from 'vue';
 import { useForm } from '@formkit/inertia'
+import { computed } from 'vue';
 
 const props = defineProps({
     developers: {
@@ -21,6 +22,15 @@ const props = defineProps({
 
 // properties
 const submitForm = ref(null);
+
+// computed
+const developerprojects = computed(() => {
+    return props.developers.data.map(dev => {
+        if (dev.project?.id) {
+            return dev.project?.id;
+        }
+    }).filter(Boolean);
+});
 
 //methods
 const goToPage = (e) => {
@@ -41,12 +51,21 @@ const changeHandler = (index) => {
     submitForm.value[index].node.submit()
 }
 
+// check if it can show
+const canShow = () => {
+    const condition = props.projects.some(el => developerprojects.value.includes(el.value));
+
+    if (props.projects.length === 1) {
+        return false;
+    } else {
+        return !condition;
+    }
+}
+
 
 
 // hooks
-onMounted(() => {
-    console.log(props.projects);
-});
+onMounted(() => {});
 
 
 </script>
@@ -90,27 +109,26 @@ onMounted(() => {
                                     v-for="(developer, index) in developers.data"
                                     :key="developer.id"
                                     class="grid grid-cols-5 p-4 gap-x-4">
-                                    <div class="flex px-6 py-3 text-sm text-gray-500 uppercase text-start">
+                                    <div class="flex pr-6 py-3 text-sm text-gray-500 uppercase text-start">
                                         <p>{{ developer.name }}</p>
                                     </div>
-                                    <div class="flex px-6 py-3 text-sm text-gray-500 uppercase text-start">
+                                    <div class="flex pr-6 py-3 text-sm text-gray-500 uppercase text-start">
                                         <p>{{ developer.seniority }}</p>
                                     </div>
-                                    <div class="flex">
+                                    <div class="flex pr-6 py-3 text-sm text-gray-500 uppercase text-start">
                                         <p>{{ developer.cost }}</p>
                                     </div>
-                                    <div class="flex">
-                                        <p>{{ developer.is_busy }}</p>
+                                    <div class="flex pr-6 py-3 text-sm text-gray-500 uppercase text-start">
+                                        <p>
+                                            {{ developer.is_busy }}
+                                        </p>
                                     </div>
 
-                                    <Accordion v-if="!developer.project?.developer_id">
+                                    <Accordion v-if="!developer.project?.developer_id && canShow()">
                                         <AccordionItem>
                                             <template #accordion-trigger>
-                                                <button class="flex items-center justify-between w-full group" >
-                                                    <p>
-                                                        Assign project
-                                                    </p>
-                                                    <DynamicHeroIcon name="chevron-down" :size="5" class="icon neutral-x-4" outline />
+                                                <button class="flex items-end justify-between w-full group" >
+                                                    Assign project
                                                 </button>
                                             </template>
 
@@ -126,9 +144,14 @@ onMounted(() => {
                                                         type="select"
                                                         @change="changeHandler(index)"
                                                         name="project_id"
+                                                        :classes="{
+                                                            label: '$reset w-full text-sm font-normal text-neutral-500',
+                                                            input: '$reset w-full border-1 rounded-md py-0.7 border-graybell',
+                                                            inner: '$reset relative flex item-center shadow-none',
+                                                            selectIcon: '$reset hideit',
+                                                        }"
                                                         :options="projects" />
 
-                                                        <!-- <Formkit type="hidden" name="developer_id" :value="developer.id" /> -->
                                                         <FormKit
                                                         name="developer_id"
                                                         type="hidden"
@@ -140,8 +163,11 @@ onMounted(() => {
                                             </template>
                                         </AccordionItem>
                                     </Accordion>
-                                    <div class="flex" v-else>
+                                    <div class="flex" v-else-if="developer.project?.developer_id">
                                         <p>{{ developer.project.name }}</p>
+                                    </div>
+                                    <div class="flex" v-else-if="!canShow()">
+                                        <p>There are no projects</p>
                                     </div>
                                 </div>
                                 <div class="w-full px-4 py-3">
@@ -156,3 +182,8 @@ onMounted(() => {
         </div>
     </AuthenticatedLayout>
 </template>
+<style>
+.hideit {
+    display: none !important;
+}
+</style>

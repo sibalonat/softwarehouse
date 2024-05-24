@@ -38,7 +38,7 @@ onBeforeMount(() => {
 
 </script>
 <template>
-    <li class="accordion__item">
+    <li class="accordion__item my-auto">
       <div
         class="accordion__trigger"
         :class="{'accordion__trigger_active': visible}"

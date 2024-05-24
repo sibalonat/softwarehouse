@@ -6,9 +6,7 @@ use Illuminate\Console\Command;
 use App\Jobs\SalesPersonOnboardsTheProject;
 use App\Jobs\CreateDeveloperWithRequirementJob;
 use App\Jobs\CreateProjectsWithRequirementsJob;
-use App\Jobs\DeleteProjectsWithoutDevelopersJob;
 use App\Jobs\CreateSalesPeopleWithRequirementJob;
-use App\Jobs\DeleteDevelopersThatHaveLongCreatedJob;
 
 class RunJobsCommand extends Command
 {
@@ -32,6 +30,8 @@ class RunJobsCommand extends Command
     public function handle()
     {
         $start = now();
+
+        ds(auth()->user());
 
         while (now()->diffInSeconds($start) < 60) {
 

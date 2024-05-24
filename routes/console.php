@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Artisan;
 use App\Console\Commands\RunJobsCommand;
 use Illuminate\Support\Facades\Schedule;
 use App\Console\Commands\RunPruneJobsCommand;
-
+use App\Jobs\StreamlineFinancialInfoBetweenPartiesJob;
 
 Artisan::command('inspire', function () {
     $this->comment(Inspiring::quote());
@@ -14,3 +14,5 @@ Artisan::command('inspire', function () {
 
 Schedule::command(RunJobsCommand::class)->withoutOverlapping()->everyMinute();
 Schedule::command(RunPruneJobsCommand::class)->withoutOverlapping()->everyThreeMinutes();
+
+Schedule::job(new StreamlineFinancialInfoBetweenPartiesJob())->everyTenMinutes();

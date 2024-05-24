@@ -14,9 +14,10 @@ class Project extends Model
     protected $fillable = [
         'name',
         'description',
+        'run_count',
         'end_date',
         'developer_id',
-        'salesperson_id',
+        'sales_people_id',
         'game_id',
         'complexity',
         'is_completed',
