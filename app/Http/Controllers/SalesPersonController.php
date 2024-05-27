@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\SalesPeople;
-use App\Models\SalesPerson;
 use Illuminate\Http\Request;
 
 class SalesPersonController extends Controller
@@ -13,7 +12,9 @@ class SalesPersonController extends Controller
      */
     public function index()
     {
-        //
+        return inertia('Sales/SalesScreen', [
+            'salesforce' => SalesPeople::paginate(5)->withQueryString(),
+        ]);
     }
 
     /**
