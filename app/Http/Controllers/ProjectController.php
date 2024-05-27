@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Project;
 use Illuminate\Http\Request;
 use App\Http\Requests\Project\AssignDeveloperToProject;
+use App\Models\Developer;
 
 class ProjectController extends Controller
 {
@@ -58,6 +59,7 @@ class ProjectController extends Controller
         $request->validated();
         $data['developer_id'] = $request->developer_id;
         $project->update($data);
+        Developer::find($data['developer_id'])->update(['is_busy' => true]);
     }
 
     /**
