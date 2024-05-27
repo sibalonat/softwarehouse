@@ -7,11 +7,20 @@ import { useNavigationStore } from '@/Stores/NavigationStore';
 import { storeToRefs } from 'pinia';
 import Sidebar from '@/Components/Sidebar.vue';
 import HamburgeMenuButton from '@/Components/HamburgeMenuButton.vue';
+import { watch } from 'vue';
 
 
 const navigation = useNavigationStore();
 const { triggerShow } = navigation;
 const { auth, showingSidebar } = storeToRefs(navigation);
+
+watch(() => auth.game, () => {
+    console.log('User changed');
+});
+watch(auth.game, (val) => {
+    console.log(val);
+    console.log('User changed');
+});
 
 
 </script>
