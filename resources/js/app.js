@@ -11,6 +11,10 @@ import { plugin as FormKitPlugin, defaultConfig } from '@formkit/vue'
 import '@formkit/themes/genesis'
 // end formkit installation
 
+// apexjs
+import VueApexCharts from "vue3-apexcharts";
+// end apexjs
+
 // pinia
 import { createPinia } from 'pinia'
 const pinia = createPinia()
@@ -27,6 +31,7 @@ createInertiaApp({
             .use(ZiggyVue)
             .use(FormKitPlugin, defaultConfig)
             .use(pinia)
+            .use(VueApexCharts)
             .mount(el);
     },
     progress: {

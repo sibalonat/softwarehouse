@@ -1,6 +1,37 @@
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head } from '@inertiajs/vue3';
+import { ref } from 'vue';
+import { reactive } from 'vue';
+
+const props = defineProps({
+    projects: String,
+    salesforce: String,
+    developers: String,
+});
+
+// properties
+const chartOptions = reactive({
+    chart: {
+        type: 'donut',
+    },
+    plotOptions: {
+        pie: {
+        startAngle: -90,
+        endAngle: 90,
+        offsetY: 10
+        }
+    },
+    grid: {
+        padding: {
+        bottom: -80
+        }
+    },
+    labels: ['Projects', 'Sales-Force', 'Developers'],
+});
+
+const series = ref([props.projects, props.salesforce, props.developers]);
+
 </script>
 
 <template>
@@ -14,7 +45,9 @@ import { Head } from '@inertiajs/vue3';
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                    <div class="p-6 text-gray-900">You're logged in!</div>
+                    <div class="p-6 text-gray-900">
+                        <apexchart type="donut" :options="chartOptions" :series="series"></apexchart>
+                    </div>
                 </div>
             </div>
         </div>
