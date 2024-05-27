@@ -42,23 +42,27 @@ class CreateProjectsWithRequirementsJob implements ShouldQueue
             }
 
             $complexities = [
-                ProjectComplexityAttribute::Low->value => ['value' => 5000, 'minutes' => 8],
-                ProjectComplexityAttribute::Medium->value => ['value' => 8000, 'minutes' => 21],
-                ProjectComplexityAttribute::High->value => ['value' => 15000, 'minutes' => 55],
+                ProjectComplexityAttribute::Low,
+                ProjectComplexityAttribute::Medium,
+                ProjectComplexityAttribute::High,
             ];
 
-            $complexity = array_rand($complexities);
-            $value = $complexities[$complexity]['value'];
-            $minutes = $complexities[$complexity]['minutes'];
+
+            $complexity = $complexities[array_rand($complexities)];
+
+            $value = $complexity->ProjectValue();
+            $times_until_complition = $complexity->TimesToCompleteProject();
+
             $projectName = implode(' ', $faker->words(2));
             $projectDescription = implode(' ', $faker->words(3));
 
             $project = new Project([
                 'name' => Str::ucfirst($projectName),
                 'description' => Str::ucfirst($projectDescription),
-                'end_date' => Carbon::now()->addMinutes($minutes),
+                'run_count' => $times_until_complition,
+                'end_date' => Carbon::now()->addMinutes(20),
                 'game_id' => $game->id,
-                'complexity' => $complexity,
+                'complexity' => $complexity->value,
                 'value' => $value,
                 'is_completed' => false,
             ]);

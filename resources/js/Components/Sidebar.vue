@@ -1,8 +1,5 @@
 <script setup>
 import { onMounted } from "vue";
-
-import { Link, router, usePage } from "@inertiajs/vue3";
-import Dropdown from "./Dropdown.vue";
 import MenuLink from "@/Components/MenuLink.vue";
 import { storeToRefs } from "pinia";
 
@@ -11,23 +8,30 @@ import { useNavigationStore } from "@/Stores/NavigationStore";
 
 import Accordion from "@/Components/Partials/Menu/Accordion.vue";
 import AccordionItem from "@/Components/Partials/Menu/AccordionItem.vue";
+
+import HamburgeMenuButton from '@/Components/HamburgeMenuButton.vue';
+
 // properties
 // pinia
 const menu = useNavigationStore();
 const { targets, auth, nav_links } = storeToRefs(menu);
-
+const { triggerShow } = menu;
 // hooks
 onMounted(() => {});
 
 </script>
 <template>
-<div class="fixed top-0 left-0 flex flex-col h-full max-h-full text-left bg-bg-icon z-700 v-sid-menu" ref="targets">
+<div class="fixed top-0 left-0 flex flex-col h-full max-h-full text-left bg-virtual-blue z-700 v-sid-menu" ref="targets">
     <div class="flex flex-col w-full p-2 mt-0.5">
-        <div class="p-3 border border-b-virtual-blue seperation-base">
+        <div class="p-3 border border-b-bg-icon seperation-base">
             <div class="flex items-center justify-between w-full px-4 py-1 text-start" >
-                <p class="py-1 pr-2 text-virtual-blue">
+                <p class="py-1 pr-2 text-bg-icon">
                     {{ auth.user.name.charAt(0).toUpperCase() + auth.user.name.slice(1) }}
                 </p>
+                <div class="flex mx-auto">
+
+                </div>
+                <HamburgeMenuButton class=" lg:-translate-x-2 text-gray-500" />
             </div>
         </div>
     </div>

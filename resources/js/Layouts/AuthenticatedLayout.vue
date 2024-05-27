@@ -110,12 +110,12 @@ onMounted(() => {
             </header>
 
             <!-- Page Menu -->
-            <div class="fixed top-0 left-0 w-screen h-screen transition-all duration-500 ease-in-out z-900" v-if="showingSidebar">
-                <div
+            <div class="fixed top-0 left-0 w-fit h-screen transition-all duration-500 ease-in-out z-900" v-if="showingSidebar">
+                <!-- <div
                     class="w-screen h-full"
                     :class="showingSidebar ? 'bg-neutral-900/50' : 'bg-neutral-900/0 pointer-events-none'"
                     @click="() => (triggerShow())"
-                ></div>
+                ></div> -->
 
                 <Sidebar :open="showingSidebar" />
             </div>
