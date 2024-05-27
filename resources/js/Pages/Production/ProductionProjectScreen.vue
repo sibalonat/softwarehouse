@@ -26,7 +26,7 @@ const goToPage = (e) => {
 </script>
 
 <template>
-    <Head title="Dashboard" />
+    <Head title="Projects" />
 
     <AuthenticatedLayout>
         <template #header>

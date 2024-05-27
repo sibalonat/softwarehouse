@@ -13,7 +13,7 @@ class SalesPersonController extends Controller
     public function index()
     {
         return inertia('Sales/SalesScreen', [
-            'salesforce' => SalesPeople::paginate(5)->withQueryString(),
+            'salesforce' => SalesPeople::whereHired(true)->paginate(5)->withQueryString(),
         ]);
     }
 

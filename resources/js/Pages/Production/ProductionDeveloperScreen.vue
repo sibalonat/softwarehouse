@@ -75,7 +75,7 @@ onMounted(() => console.log(props.projects));
 </script>
 
 <template>
-    <Head title="Dashboard" />
+    <Head title="Developers" />
 
     <AuthenticatedLayout>
         <template #header>

@@ -61,11 +61,11 @@ onBeforeMount(() => {
 </script>
 
 <template>
-    <Head title="Dashboard" />
+    <Head title="Developers" />
 
     <AuthenticatedLayout>
         <template #header>
-            <h2 class="text-xl font-semibold leading-tight text-gray-800">Developers</h2>
+            <h2 class="text-xl font-semibold leading-tight text-gray-800">Developers - for hire</h2>
         </template>
 
         <div class="py-12">

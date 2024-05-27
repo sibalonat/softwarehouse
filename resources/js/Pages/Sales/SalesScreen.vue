@@ -26,11 +26,11 @@ const goToPage = (e) => {
 </script>
 
 <template>
-    <Head title="Dashboard" />
+    <Head title="Sales-Force" />
 
     <AuthenticatedLayout>
         <template #header>
-            <h2 class="text-xl font-semibold leading-tight text-gray-800">salesforce</h2>
+            <h2 class="text-xl font-semibold leading-tight text-gray-800">Sales-Force</h2>
         </template>
 
         <div class="py-12">
