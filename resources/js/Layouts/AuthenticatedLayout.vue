@@ -8,20 +8,24 @@ import { storeToRefs } from 'pinia';
 import Sidebar from '@/Components/Sidebar.vue';
 import HamburgeMenuButton from '@/Components/HamburgeMenuButton.vue';
 import { watch } from 'vue';
+import { onMounted } from 'vue';
 
 
 const navigation = useNavigationStore();
 const { triggerShow } = navigation;
 const { auth, showingSidebar } = storeToRefs(navigation);
 
-watch(() => auth.game, () => {
-    console.log('User changed');
-});
-watch(auth.game, (val) => {
-    console.log(val);
-    console.log('User changed');
-});
+const game = ref(null)
 
+onMounted(() => {
+    setInterval(() => {
+        fetch(route('auth-event-interval', auth.value.user))
+            .then(response => response.json())
+            .then(data => {
+                game.value = data.game;
+            });
+    }, 1000);
+});
 
 </script>
 
@@ -79,12 +83,13 @@ watch(auth.game, (val) => {
                                 {{ auth.user.last_gameplay }}
                             </p>
                         </div>
-                        <div class="items-center hidden px-4 py-1 space-x-4 text-sm rounded-md text-neutral-50 bg-neutral-50/10 md:flex">
+                        <div class="items-center hidden px-4 py-1 space-x-4 text-sm rounded-md text-neutral-50 bg-neutral-50/10 md:flex"
+                        v-if="game">
                             <p>
                                 <span class="mr-2 text-xs opacity-70">
                                 Budget:
                                 </span>
-                                {{ auth.game.balance }} €
+                                {{ game.balance }} €
                             </p>
                         </div>
                     </div>

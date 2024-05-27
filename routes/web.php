@@ -11,6 +11,7 @@ use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\DeveloperController;
 use App\Http\Controllers\SalesPersonController;
 use App\Http\Controllers\HumanResourcesController;
+use App\Http\Controllers\AuthEventIntervalController;
 
 Route::get('/', function () {
     return Inertia::render('Welcome', [
@@ -63,6 +64,12 @@ Route::middleware('auth', 'verified')->group(function () {
     Route::put('/hr/developers/{developer}/hire', [
         HumanResourcesController::class, 'hireDeveloper'
     ])->name('hr.developer.hire');
+
+
+    // update game data
+    Route::get('/auth-event-interval/{user}', [
+        AuthEventIntervalController::class, 'getDataForUser'
+    ])->name('auth-event-interval');
 
 });
 

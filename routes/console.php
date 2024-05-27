@@ -15,4 +15,4 @@ Artisan::command('inspire', function () {
 Schedule::command(RunJobsCommand::class)->withoutOverlapping()->everyMinute();
 Schedule::command(RunPruneJobsCommand::class)->withoutOverlapping()->everyThreeMinutes();
 
-Schedule::job(new StreamlineFinancialInfoBetweenPartiesJob)->everyFiveMinutes();
+Schedule::job(new StreamlineFinancialInfoBetweenPartiesJob)->everyFiveSeconds();
