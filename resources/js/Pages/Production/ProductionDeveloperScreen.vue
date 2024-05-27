@@ -132,7 +132,7 @@ onMounted(() => console.log(props.projects));
                                         <AccordionItem>
                                             <template #accordion-trigger>
                                                 <button class="flex items-end justify-between w-full group" >
-                                                    Assign project {{ index }}
+                                                    Assign project
                                                 </button>
                                             </template>
 
