@@ -5,9 +5,9 @@ import { ref } from 'vue';
 import { reactive } from 'vue';
 
 const props = defineProps({
-    projects: String,
-    salesforce: String,
-    developers: String,
+    projects: Number,
+    salesforce: Number,
+    developers: Number,
 });
 
 // properties
