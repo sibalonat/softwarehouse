@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Game extends Model
@@ -45,5 +46,23 @@ class Game extends Model
     public function projects() : HasMany
     {
         return $this->hasMany(Project::class);
+    }
+
+    /**
+     * Get the developer relation for the game.
+     *
+     */
+    public function developers() : BelongsToMany
+    {
+        return $this->belongsToMany(Developer::class);
+    }
+
+    /**
+     * Get the developer relation for the game.
+     *
+     */
+    public function salespeople() : BelongsToMany
+    {
+        return $this->belongsToMany(SalesPeople::class, 'sales_people_game', 'game_id', 'sales_people_id');
     }
 }

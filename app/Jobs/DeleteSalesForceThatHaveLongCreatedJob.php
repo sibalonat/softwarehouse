@@ -17,10 +17,14 @@ class DeleteSalesForceThatHaveLongCreatedJob implements ShouldQueue
      */
     public function handle(): void
     {
-        $tenMinutesAgo = now()->subMinutes(10);
-        SalesPeople::whereIsBusy(false)
-            ->whereHired(false)
-            ->where('created_at', '<=', $tenMinutesAgo)
-            ->delete();
+        $tenMinutesAgo = now()->subMinutes(5);
+        $salesforce = SalesPeople::whereIsBusy(false)
+        ->whereHired(false)
+        ->where('created_at', '<=', $tenMinutesAgo)
+        ->get();
+        $salesforce->each(function($vendor) {
+            $vendor->games()->detach();
+        });
+        $salesforce->each->delete();
     }
 }

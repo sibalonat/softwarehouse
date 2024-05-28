@@ -19,9 +19,13 @@ class DeleteDevelopersThatHaveLongCreatedJob implements ShouldQueue
     public function handle(): void
     {
         $tenMinutesAgo = now()->subMinutes(5);
-        Developer::whereIsBusy(false)
-            ->whereHired(false)
-            ->where('created_at', '<=', $tenMinutesAgo)
-            ->delete();
+        $developers = Developer::whereIsBusy(false)
+        ->whereHired(false)
+        ->where('created_at', '<=', $tenMinutesAgo)
+        ->get();
+        $developers->each(function($developer) {
+            $developer->games()->detach();
+        });
+        $developers->each->delete();
     }
 }

@@ -5,9 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use App\Enums\DeveloperSeniorityAttribute;
 use Illuminate\Database\Eloquent\Casts\Attribute;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Developer extends Model
 {
@@ -46,7 +47,6 @@ class Developer extends Model
         ];
     }
 
-
     /**
      * Get the user associated with the Developer
      *
@@ -56,4 +56,14 @@ class Developer extends Model
     {
         return $this->hasOne(Project::class);
     }
+
+    /**
+     * Get the developers relation for the game.
+     *
+     */
+    public function games() : BelongsToMany
+    {
+        return $this->belongsToMany(Game::class);
+    }
+
 }

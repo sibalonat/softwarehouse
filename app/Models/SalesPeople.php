@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\Enums\SalesPersonExperienceAttribute;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class SalesPeople extends Model
 {
@@ -42,5 +43,14 @@ class SalesPeople extends Model
             'hired' => 'boolean',
             'experience' => SalesPersonExperienceAttribute::class,
         ];
+    }
+
+    /**
+     * Get the salesforce relation for the game.
+     *
+     */
+    public function games() : BelongsToMany
+    {
+        return $this->belongsToMany(Game::class);
     }
 }

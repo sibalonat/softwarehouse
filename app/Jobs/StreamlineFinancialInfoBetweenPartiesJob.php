@@ -6,6 +6,7 @@ use App\Models\Project;
 use Illuminate\Bus\Queueable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
+use App\Enums\ProjectComplexityAttribute;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 
@@ -26,22 +27,21 @@ class StreamlineFinancialInfoBetweenPartiesJob implements ShouldQueue
             // Increment the run count
             $project->run_count++;
 
+            $projectComplexity = Project::find($project->id)->complexity;
+            $complexityEnum = ProjectComplexityAttribute::fromValue($projectComplexity);
+
+            $max_run_count = $complexityEnum->TimesToCompleteProject();
+
             // On the third run, mark the project as finished
-            if ($project->run_count === 60) {
+            if ($project->run_count === $max_run_count) {
                 $project->game->balance += $project->value;
 
                 $project->game->save();
 
-                // Deduct the appropriate costs from the developer and sales person
-                $project->game->balance -= $project->developer->cost;
-                $project->game->balance -= $project->salesperson->cost;
                 $project->is_completed = true;
+                $project->end_date = now();
                 $project->sales_people_id = null;
                 $project->developer_id = null;
-            } else {
-                $project->game->balance -= $project->developer->cost;
-                $project->game->balance -= $project->salesperson->cost;
-                $project->game->save();
             }
 
             // Save the project

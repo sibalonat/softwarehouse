@@ -29,6 +29,8 @@ class CreateSalesPeopleWithRequirementJob implements ShouldQueue
 
         foreach ($users as $user) {
 
+            $game = $user->load('game')->game;
+
             $randomSeconds = random_int(1, 60);
 
             // Get the current second of the hour
@@ -40,22 +42,24 @@ class CreateSalesPeopleWithRequirementJob implements ShouldQueue
             }
 
             $experiences = [
-                SalesPersonExperienceAttribute::Beginner->value => ['cost' => 400],
-                SalesPersonExperienceAttribute::Intermediate->value => ['cost' => 800],
-                SalesPersonExperienceAttribute::Advanced->value => ['cost' => 1400],
+                SalesPersonExperienceAttribute::Beginner,
+                SalesPersonExperienceAttribute::Intermediate,
+                SalesPersonExperienceAttribute::Advanced,
             ];
 
-            $experience = array_rand($experiences);
-            $value = $experiences[$experience]['cost'];
+            $experience = $experiences[array_rand($experiences)];
+            $value = $experience->PersonelCost();
 
             $salesperson = new SalesPeople([
                 'name' => $faker->firstName,
                 'last_name' => $faker->lastName,
-                'experience' => $experience,
+                'experience' => $experience->value,
                 'cost' => $value,
             ]);
 
             $salesperson->save();
+
+            $game->salespeople()->attach($salesperson->id);
         }
     }
 }

@@ -47,7 +47,6 @@ class CreateProjectsWithRequirementsJob implements ShouldQueue
                 ProjectComplexityAttribute::High,
             ];
 
-
             $complexity = $complexities[array_rand($complexities)];
 
             $value = $complexity->ProjectValue();

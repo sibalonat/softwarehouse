@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Artisan;
 use App\Console\Commands\RunJobsCommand;
 use Illuminate\Support\Facades\Schedule;
 use App\Console\Commands\RunPruneJobsCommand;
+use App\Jobs\DeliverPaymentsToEmployeesJob;
 use App\Jobs\StreamlineFinancialInfoBetweenPartiesJob;
 
 Artisan::command('inspire', function () {
@@ -13,7 +14,8 @@ Artisan::command('inspire', function () {
 
 
 Schedule::command(RunJobsCommand::class)->withoutOverlapping()->everyMinute();
-ds('here');
 Schedule::command(RunPruneJobsCommand::class)->withoutOverlapping()->everyThreeMinutes();
+
+Schedule::job(new DeliverPaymentsToEmployeesJob)->withoutOverlapping()->everyThirtySeconds();
 
 // Schedule::job(new StreamlineFinancialInfoBetweenPartiesJob)->everyFiveSeconds();

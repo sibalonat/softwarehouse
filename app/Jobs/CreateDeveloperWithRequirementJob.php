@@ -29,6 +29,8 @@ class CreateDeveloperWithRequirementJob implements ShouldQueue
 
         foreach ($users as $user) {
 
+            $game = $user->load('game')->game;
+
             $randomSeconds = random_int(1, 60);
 
             // Get the current second of the hour
@@ -40,22 +42,24 @@ class CreateDeveloperWithRequirementJob implements ShouldQueue
             }
 
             $experiences = [
-                DeveloperSeniorityAttribute::Junior->value => ['cost' => 800],
-                DeveloperSeniorityAttribute::Middle->value => ['cost' => 1500],
-                DeveloperSeniorityAttribute::Senior->value => ['cost' => 3000],
+                DeveloperSeniorityAttribute::Junior,
+                DeveloperSeniorityAttribute::Middle,
+                DeveloperSeniorityAttribute::Senior,
             ];
 
-            $experience = array_rand($experiences);
-            $value = $experiences[$experience]['cost'];
+            $experience = $experiences[array_rand($experiences)];
+            $value = $experience->PersonelCost();
 
             $developer = new Developer([
                 'name' => $faker->firstName,
                 'last_name' => $faker->lastName,
-                'seniority' => $experience,
+                'seniority' => $experience->value,
                 'cost' => $value,
             ]);
 
             $developer->save();
+
+            $game->developers()->attach($developer->id);
         }
     }
 }

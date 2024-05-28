@@ -11,12 +11,12 @@ enum ProjectComplexityAttribute : string
     use AttributableEnum;
 
     #[ProjectValue(10000)]
-    #[TimesToCompleteProject(60*5)]
+    #[TimesToCompleteProject(10*1)]
     case Low = 'low';
     #[ProjectValue(13000)]
-    #[TimesToCompleteProject(60*10)]
+    #[TimesToCompleteProject(10*2)]
     case Medium = 'medium';
     #[ProjectValue(20000)]
-    #[TimesToCompleteProject(60*15)]
+    #[TimesToCompleteProject(10*3)]
     case High = 'high';
 }
