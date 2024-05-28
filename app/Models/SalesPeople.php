@@ -51,6 +51,6 @@ class SalesPeople extends Model
      */
     public function games() : BelongsToMany
     {
-        return $this->belongsToMany(Game::class);
+        return $this->belongsToMany(Game::class, 'sales_people_game', 'sales_people_id', 'game_id');
     }
 }

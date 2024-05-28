@@ -18,4 +18,4 @@ Schedule::command(RunPruneJobsCommand::class)->withoutOverlapping()->everyThreeM
 
 Schedule::job(new DeliverPaymentsToEmployeesJob)->withoutOverlapping()->everyThirtySeconds();
 
-// Schedule::job(new StreamlineFinancialInfoBetweenPartiesJob)->everyFiveSeconds();
+Schedule::job(new StreamlineFinancialInfoBetweenPartiesJob)->withoutOverlapping()->everySecond();

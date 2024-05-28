@@ -9,10 +9,10 @@ enum SalesPersonExperienceAttribute : string
 {
     use AttributableEnum;
 
-    #[PersonelCost(400)]
+    #[PersonelCost(100)]
     case Beginner = 'beginner';
-    #[PersonelCost(800)]
+    #[PersonelCost(500)]
     case Intermediate = 'intermediate';
-    #[PersonelCost(1400)]
+    #[PersonelCost(1100)]
     case Advanced = 'advanced';
 }

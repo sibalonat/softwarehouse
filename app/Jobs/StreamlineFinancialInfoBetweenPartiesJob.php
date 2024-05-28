@@ -25,15 +25,18 @@ class StreamlineFinancialInfoBetweenPartiesJob implements ShouldQueue
         foreach ($projects as $project) {
 
             // Increment the run count
-            $project->run_count++;
+            $project->run_count--;
 
             $projectComplexity = Project::find($project->id)->complexity;
-            $complexityEnum = ProjectComplexityAttribute::fromValue($projectComplexity);
+            $complexityEnum = ProjectComplexityAttribute::from($projectComplexity->value);
 
-            $max_run_count = $complexityEnum->TimesToCompleteProject();
+            $max_run_count = $complexityEnum->TimesToCompleteProject($complexityEnum);
+            ds($project->run_count === $max_run_count);
+            ds($project->run_count);
 
-            // On the third run, mark the project as finished
-            if ($project->run_count === $max_run_count) {
+            // On the last run, mark the project as finished
+            if ($project->run_count === 0) {
+                ds('ill be here');
                 $project->game->balance += $project->value;
 
                 $project->game->save();

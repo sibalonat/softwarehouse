@@ -9,10 +9,10 @@ enum DeveloperSeniorityAttribute : string
 {
     use AttributableEnum;
 
-    #[PersonelCost(800)]
+    #[PersonelCost(300)]
     case Junior = 'junior';
-    #[PersonelCost(1500)]
+    #[PersonelCost(1000)]
     case Middle = 'middle';
-    #[PersonelCost(3000)]
+    #[PersonelCost(2500)]
     case Senior = 'senior';
 }
