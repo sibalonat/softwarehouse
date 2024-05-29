@@ -7,7 +7,6 @@ import { useNavigationStore } from '@/Stores/NavigationStore';
 import { storeToRefs } from 'pinia';
 import Sidebar from '@/Components/Sidebar.vue';
 import HamburgeMenuButton from '@/Components/HamburgeMenuButton.vue';
-import { watch } from 'vue';
 import { onMounted } from 'vue';
 import FooterMenu from '@/Components/Partials/Menu/FooterMenu.vue';
 
