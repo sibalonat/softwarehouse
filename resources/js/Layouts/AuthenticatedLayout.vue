@@ -9,12 +9,11 @@ import Sidebar from '@/Components/Sidebar.vue';
 import HamburgeMenuButton from '@/Components/HamburgeMenuButton.vue';
 import { watch } from 'vue';
 import { onMounted } from 'vue';
+import FooterMenu from '@/Components/Partials/Menu/FooterMenu.vue';
 
 
 const navigation = useNavigationStore();
-const { triggerShow } = navigation;
 const { auth, showingSidebar } = storeToRefs(navigation);
-
 const game = ref(null)
 
 onMounted(() => {
@@ -111,12 +110,6 @@ onMounted(() => {
 
             <!-- Page Menu -->
             <div class="fixed top-0 left-0 w-fit h-screen transition-all duration-500 ease-in-out z-900" v-if="showingSidebar">
-                <!-- <div
-                    class="w-screen h-full"
-                    :class="showingSidebar ? 'bg-neutral-900/50' : 'bg-neutral-900/0 pointer-events-none'"
-                    @click="() => (triggerShow())"
-                ></div> -->
-
                 <Sidebar :open="showingSidebar" />
             </div>
 
@@ -125,18 +118,7 @@ onMounted(() => {
                 <slot />
             </main>
             <footer class="w-full fixed bottom-0 bg-virtual-blue py-2">
-                <div class="mx-auto w-1/3 grid grid grid-cols-3 ">
-
-                    <Link
-                    :href="route(link.route)"
-                    v-for="link in auth.menu_footer"
-                    :key="link"
-                    :class="route().current(link.route) ? 'bg-slate-50 text-virtual-blue rounded-md' : 'text-slate-50'"
-                    class="py-2 text-center font-semibold text-lg uppercase">
-                        {{ link.title }}
-                    </Link>
-
-                </div>
+                <FooterMenu :links="auth.menu_footer"  />
             </footer>
         </div>
     </div>

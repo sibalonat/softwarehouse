@@ -48,16 +48,42 @@ return [
     ],
     'menu_footer' => [
         [
-            'title' => 'Projects',
-            'route' => 'production.projects.index',
+            'title' => 'Production',
+            'icon' => '',
+            'children' => [
+                [
+                    'title' => 'Projects',
+                    'route' => 'production.projects.index',
+                    'icon' => 'bars-arrow-up',
+                ],
+                [
+                    'title' => 'Developers',
+                    'route' => 'production.developers.index',
+                    'icon' => 'command-line',
+                ],
+            ],
         ],
         [
             'title' => 'Sales',
+            'icon' => 'users',
             'route' => 'sales.index',
+            'children' => [],
         ],
         [
             'title' => 'HR',
-            'route' => 'hr.developers',
+            'icon' => '',
+            'children' => [
+                [
+                    'title' => 'Developers',
+                    'route' => 'hr.developers',
+                    'icon' => 'ellipsis-vertical',
+                ],
+                [
+                    'title' => 'Salesforce',
+                    'route' => 'hr.salesforce',
+                    'icon' => 'ellipsis-vertical',
+                ],
+            ],
         ],
     ]
 ];

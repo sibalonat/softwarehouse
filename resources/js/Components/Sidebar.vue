@@ -15,7 +15,6 @@ import HamburgeMenuButton from '@/Components/HamburgeMenuButton.vue';
 // pinia
 const menu = useNavigationStore();
 const { targets, auth, nav_links } = storeToRefs(menu);
-const { triggerShow } = menu;
 // hooks
 onMounted(() => {});
 

@@ -6,6 +6,7 @@ namespace App\Models;
 use Faker\Factory as Faker;
 use Illuminate\Support\Str;
 use Illuminate\Support\Carbon;
+use App\CreatesInitialPersonnel;
 use Illuminate\Notifications\Notifiable;
 use App\Enums\ProjectComplexityAttribute;
 use App\Enums\DeveloperSeniorityAttribute;
@@ -17,7 +18,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable;
+    use HasFactory, Notifiable, CreatesInitialPersonnel;
 
     /**
      * The attributes that are mass assignable.
@@ -68,8 +69,8 @@ class User extends Authenticatable
             ]);
 
             // create developer and sales person
-            $salesperson = $model->createFirstSalesPerson();
-            $developer = $model->createFirstDeveloper();
+            $salesperson = SalesPeople::create($model->createFirstSalesPerson());
+            $developer = Developer::create($model->createFirstDeveloper());
 
             // pivot tables
             $game->salespeople()->attach($salesperson->id);
@@ -105,39 +106,39 @@ class User extends Authenticatable
         return $this->hasOne(Game::class);
      }
 
-     // Create the first sales person for the user
-     public function createFirstSalesPerson()
-     {
-        $faker = Faker::create();
-        $experience = SalesPersonExperienceAttribute::Intermediate;
-        $value = $experience->PersonelCost();
-        $salesperson = new SalesPeople([
-            'name' => $faker->firstName,
-            'last_name' => $faker->lastName,
-            'hired' => true,
-            'experience' => $experience->value,
-            'cost' => $value,
-        ]);
+    //  // Create the first sales person for the user
+    //  public function createFirstSalesPerson()
+    //  {
+    //     $faker = Faker::create();
+    //     $experience = SalesPersonExperienceAttribute::Intermediate;
+    //     $value = $experience->PersonelCost();
+    //     $salesperson = new SalesPeople([
+    //         'name' => $faker->firstName,
+    //         'last_name' => $faker->lastName,
+    //         'hired' => true,
+    //         'experience' => $experience->value,
+    //         'cost' => $value,
+    //     ]);
 
-        $salesperson->save();
-        return $salesperson;
-     }
+    //     $salesperson->save();
+    //     return $salesperson;
+    //  }
 
-     // Create the first developer for the user
-     public function createFirstDeveloper()
-     {
-        $faker = Faker::create();
-        $experience = DeveloperSeniorityAttribute::Middle;
-        $value = $experience->PersonelCost();
+    //  // Create the first developer for the user
+    //  public function createFirstDeveloper()
+    //  {
+    //     $faker = Faker::create();
+    //     $experience = DeveloperSeniorityAttribute::Middle;
+    //     $value = $experience->PersonelCost();
 
-        $developer = new Developer([
-            'name' => $faker->firstName,
-            'last_name' => $faker->lastName,
-            'seniority' => $experience->value,
-            'hired' => true,
-            'cost' => $value,
-        ]);
-        $developer->save();
-        return $developer;
-    }
+    //     $developer = new Developer([
+    //         'name' => $faker->firstName,
+    //         'last_name' => $faker->lastName,
+    //         'seniority' => $experience->value,
+    //         'hired' => true,
+    //         'cost' => $value,
+    //     ]);
+    //     $developer->save();
+    //     return $developer;
+    // }
 }

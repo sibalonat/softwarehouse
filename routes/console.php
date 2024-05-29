@@ -13,7 +13,7 @@ Artisan::command('inspire', function () {
 })->purpose('Display an inspiring quote')->hourly();
 
 
-Schedule::command(RunJobsCommand::class)->withoutOverlapping()->everyMinute();
+Schedule::command(RunJobsCommand::class)->withoutOverlapping()->everyThirtySeconds();
 Schedule::command(RunPruneJobsCommand::class)->withoutOverlapping()->everyThreeMinutes();
 
 Schedule::job(new DeliverPaymentsToEmployeesJob)->withoutOverlapping()->everyThirtySeconds();
