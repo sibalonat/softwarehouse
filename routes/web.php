@@ -74,6 +74,10 @@ Route::middleware('auth', 'verified')->group(function () {
     Route::get('/auth-event-interval-game-over-flash/{user}', [
         AuthEventIntervalController::class, 'gameOverFlash'
     ])->name('auth-event-interval-game-over-flash');
+    // restart game
+    Route::get('/restart-game', [
+        AuthEventIntervalController::class, 'restartGame'
+    ])->name('restart-game');
 
 });
 

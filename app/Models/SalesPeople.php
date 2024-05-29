@@ -40,7 +40,7 @@ class SalesPeople extends Model
     {
         return [
             'is_busy' => 'boolean',
-            'hired' => 'boolean',
+            // 'hired' => 'boolean',
             'experience' => SalesPersonExperienceAttribute::class,
         ];
     }

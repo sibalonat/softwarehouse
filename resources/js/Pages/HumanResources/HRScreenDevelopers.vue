@@ -9,7 +9,7 @@ import { storeToRefs } from 'pinia';
 import { onMounted } from 'vue';
 import { onBeforeMount } from 'vue';
 import { computed } from 'vue';
-
+import ConfirmationDialog from '@/Components/Dialogs/ConfirmationDialog.vue';
 // props
 const props = defineProps({
     developers: {
@@ -20,8 +20,20 @@ const props = defineProps({
 
 // stores
 const form = useFormAttributeStores();
-const { sendRequest, setUpData } = form;
-const { hiredBoolean } = storeToRefs(form);
+const {
+    sendRequest,
+    setUpData,
+    openDialog,
+    closeDialog,
+    setInitialValues
+} = form;
+
+const {
+    hiredSalesBoolean,
+    hiredBoolean,
+    properties,
+    showDialog
+} = storeToRefs(form);
 
 // computed
 
@@ -55,6 +67,7 @@ const goToPage = (e) => {
 // hooks
 onBeforeMount(() => {
     setUpData(props.developers);
+    setInitialValues()
 });
 
 
@@ -126,12 +139,11 @@ onBeforeMount(() => {
                                     </td>
                                     <td class="py-4 pl-6 text-sm font-medium whitespace-nowrap text-end" v-if="person">
                                         <Toggle
-                                        v-if="person"
-                                        v-model="hiredBoolean.data[index].hired"
+                                        v-model="hiredBoolean[index].hired"
                                         :classes="classesForToggle"
                                         :true-value="1"
                                         :false-value="0"
-                                        @change="sendRequest(person, $event, 'hr.developer.hire', 'developers')" />
+                                        @change="openDialog(person, $event, 'hr.developer.hire', 'developers')" />
                                     </td>
                                     </tr>
                                 </tbody>
@@ -145,6 +157,24 @@ onBeforeMount(() => {
                     </div>
                 </div>
             </div>
+        </div>
+        <div class="fixed top-1/2 left-1/4 w-3/6" v-if="showDialog">
+            <ConfirmationDialog>
+                <template #close-button>
+                    <button
+                    @click="closeDialog"
+                    class="bg-red-500 text-slate-50 rounded-md px-4 py-2 w-1/4">
+                        Close
+                    </button>
+                </template>
+                <template #confirm-button>
+                    <button
+                    @click="sendRequest(properties.model, properties.boolean, properties.webroute, properties.props)"
+                    class="bg-green-500 text-slate-50 rounded-md px-4 py-2 w-1/4">
+                        Confirm
+                    </button>
+                </template>
+            </ConfirmationDialog>
         </div>
     </AuthenticatedLayout>
 </template>

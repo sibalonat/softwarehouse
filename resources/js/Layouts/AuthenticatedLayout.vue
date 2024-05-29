@@ -14,6 +14,7 @@ import NotifyGameOver from '@/Components/Alerts/NotifyGameOver.vue';
 const navigation = useNavigationStore();
 const { auth, showingSidebar } = storeToRefs(navigation);
 const game = ref(null)
+const alert = ref('')
 
 onMounted(() => {
     setInterval(async () => {
@@ -22,8 +23,10 @@ onMounted(() => {
 
         const gameover = await axios.get(route('auth-event-interval-game-over-flash', auth.value.user))
 
-        console.log(gameover.data);
-
+        if (gameover.data.message && !alert.value?.message) {
+            console.log(gameover.data.message);
+            alert.value = gameover.data;
+        }
 
     }, 1000);
 });
@@ -34,7 +37,6 @@ onMounted(() => {
 
 <template>
     <div>
-        {{ $page.props.flash }}
         <div class="min-h-screen bg-gray-100">
             <nav class="w-full border-b border-gray-100 bg-virtual-blue fix">
 
@@ -122,7 +124,11 @@ onMounted(() => {
             <main>
                 <slot />
             </main>
-            <NotifyGameOver />
+
+            <div class="fixed h-screen w-screen top-0" v-show="alert.message">
+                <NotifyGameOver :alert="alert" />
+            </div>
+
             <footer class="w-full fixed bottom-0 bg-virtual-blue py-2">
                 <FooterMenu :links="auth.menu_footer"  />
             </footer>
