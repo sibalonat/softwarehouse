@@ -14,4 +14,11 @@ class AuthEventIntervalController extends Controller
             'game' => $user->game->only('id', 'name', 'user_id', 'balance'),
         ]);
     }
+
+    public function gameOverFlass()
+    {
+        session()->flash('alert', [
+            'message' => 'You reached the balance 0. Game over!',
+        ]);
+    }
 }

@@ -37,6 +37,9 @@ class HandleInertiaRequests extends Middleware
                 'menu' => config('navigation.menu'),
                 'menu_footer' => config('navigation.menu_footer'),
             ],
+            'flash' => [
+                'alert' => $request->session()->get('alert'),
+            ],
         ];
     }
 }

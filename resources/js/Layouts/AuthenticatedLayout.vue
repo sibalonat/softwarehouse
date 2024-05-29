@@ -9,7 +9,7 @@ import Sidebar from '@/Components/Sidebar.vue';
 import HamburgeMenuButton from '@/Components/HamburgeMenuButton.vue';
 import { onMounted } from 'vue';
 import FooterMenu from '@/Components/Partials/Menu/FooterMenu.vue';
-
+import NotifyGameOver from '@/Components/Alerts/NotifyGameOver.vue';
 
 const navigation = useNavigationStore();
 const { auth, showingSidebar } = storeToRefs(navigation);
@@ -24,6 +24,8 @@ onMounted(() => {
             });
     }, 1000);
 });
+
+
 
 </script>
 
@@ -116,6 +118,7 @@ onMounted(() => {
             <main>
                 <slot />
             </main>
+            <NotifyGameOver />
             <footer class="w-full fixed bottom-0 bg-virtual-blue py-2">
                 <FooterMenu :links="auth.menu_footer"  />
             </footer>

@@ -14,42 +14,18 @@ class ProjectController extends Controller
      */
     public function index()
     {
+        $projects = Project::query()
+        ->whereNotNull('sales_people_id')
+        ->whereNull('developer_id')
+        ->with('developer')
+        ->paginate(5)
+        ->withQueryString();
         return inertia('Production/ProductionProjectScreen', [
-            'projects' => Project::paginate(5)->withQueryString(),
+            'projects' => $projects,
+            'developers' => Developer::with('project')->whereHired(true)->get()->toLabelValueArray('name', 'id')
         ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Project $project)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Project $project)
-    {
-        //
-    }
 
     /**
      * Update the specified resource in storage.
@@ -60,13 +36,5 @@ class ProjectController extends Controller
         $data['developer_id'] = $request->developer_id;
         $project->update($data);
         Developer::find($data['developer_id'])->update(['is_busy' => true]);
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Project $project)
-    {
-        //
     }
 }

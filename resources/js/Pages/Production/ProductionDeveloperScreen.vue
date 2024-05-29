@@ -93,7 +93,7 @@ onMounted(() => console.log(props.projects));
 
                                 <div class="grid grid-cols-5 px-3 py-1 gap-x-4 bg-neutral-300">
                                     <p class="flex py-3 text-sm text-gray-500 uppercase text-start">
-                                        Name
+                                        Name Surname
                                     </p>
                                     <p class="flex py-3 text-sm text-gray-500 uppercase text-start">
                                         Seniority
@@ -114,7 +114,7 @@ onMounted(() => console.log(props.projects));
                                     :key="developer.id"
                                     class="grid grid-cols-5 px-3 py-2 gap-x-4">
                                     <div class="flex pr-6 py-3 text-sm text-gray-500 uppercase text-start">
-                                        <p>{{ developer.name }}</p>
+                                        <p>{{ developer.name }} {{ developer.last_name }}</p>
                                     </div>
                                     <div class="flex pr-6 py-3 text-sm text-gray-500 uppercase text-start">
                                         <p>{{ developer.seniority }}</p>

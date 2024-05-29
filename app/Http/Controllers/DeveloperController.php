@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Developers\AssignProjectToDeveloper;
+use App\Http\Requests\Project\AssignDeveloperToProject;
 use App\Models\Project;
 use App\Models\Developer;
-use Illuminate\Http\Request;
 
 class DeveloperController extends Controller
 {
@@ -25,50 +26,15 @@ class DeveloperController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Developer $developer)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Developer $developer)
-    {
-        //
-    }
-
-    /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Developer $developer)
+    public function update(AssignDeveloperToProject $request, Developer $developer)
     {
-        //
+        $request->validated();
+        $project = Project::find($request->project_id);
+        $data['project_id'] = $request->project_id;
+        $project->update($data);
+        $developer->update(['is_busy' => true]);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Developer $developer)
-    {
-        //
-    }
 }

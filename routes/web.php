@@ -41,11 +41,11 @@ Route::middleware('auth', 'verified')->group(function () {
     Route::name('production.')->group(function () {
         // projects page
         Route::resource('/production/projects', ProjectController::class)->except([
-            'create', 'store', 'destroy'
+            'create', 'store', 'destroy', 'show'
         ]);
         // developers page
         Route::resource('/production/developers', DeveloperController::class)->except([
-            'create', 'store', 'destroy'
+            'create', 'store', 'destroy', 'show'
         ]);
     });
 

@@ -27,7 +27,7 @@ class Developer extends Model
     /**
      * Get the developer's first and last name.
      */
-    protected function firstLastName(): Attribute
+    public function firstLastName(): Attribute
     {
         return Attribute::make(
             get: fn (mixed $value, array $attributes) => ucfirst($attributes['name'])  . ' ' . ucfirst($attributes['last_name']),

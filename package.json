@@ -25,6 +25,7 @@
         "animejs": "^3.2.2",
         "apexcharts": "^3.49.1",
         "pinia": "^2.1.7",
+        "uuidv4": "^6.2.13",
         "vue3-apexcharts": "^1.5.3"
     }
 }

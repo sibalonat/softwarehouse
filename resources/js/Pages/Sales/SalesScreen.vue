@@ -3,7 +3,6 @@ import RenderlessPagination from '@/Components/Pagination/RenderlessPagination.v
 import DynamicHeroIcon from '@/Components/Partials/DynamicHeroIcon.vue';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head, router } from '@inertiajs/vue3';
-import { onMounted } from 'vue';
 
 const props = defineProps({
     salesforce: {
@@ -21,7 +20,6 @@ const goToPage = (e) => {
         router.visit(url);
     }
 }
-
 
 </script>
 
@@ -46,7 +44,7 @@ const goToPage = (e) => {
                                         <th
                                         scope="col"
                                         class="px-6 py-3 text-sm text-gray-500 uppercase text-start">
-                                            Name
+                                            Name Surname
                                         </th>
                                         <th
                                         scope="col"
@@ -68,7 +66,7 @@ const goToPage = (e) => {
                                 <tbody class="divide-y divide-neutral-300">
                                     <tr v-for="agent in salesforce.data" :key="agent.id">
                                     <td class="px-6 py-4 text-sm font-medium text-gray-800 whitespace-nowrap">
-                                        {{ agent.name }}
+                                        {{ agent.name }} {{ agent.last_name }}
                                     </td>
                                     <td class="px-6 py-4 font-light whitespace-nowrap">
                                         <div class="text-center capitalize rounded-md"
