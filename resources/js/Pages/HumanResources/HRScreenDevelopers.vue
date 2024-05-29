@@ -124,8 +124,9 @@ onBeforeMount(() => {
                                     <td class="px-6 py-4 text-sm text-center text-gray-800 uppercase text-medium whitespace-nowrap">
                                         {{ person.is_busy }}
                                     </td>
-                                    <td class="py-4 pl-6 text-sm font-medium whitespace-nowrap text-end">
+                                    <td class="py-4 pl-6 text-sm font-medium whitespace-nowrap text-end" v-if="person">
                                         <Toggle
+                                        v-if="person"
                                         v-model="hiredBoolean.data[index].hired"
                                         :classes="classesForToggle"
                                         :true-value="1"

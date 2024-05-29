@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\Developers\AssignProjectToDeveloper;
 use App\Http\Requests\Project\AssignDeveloperToProject;
 use App\Models\Project;
 use App\Models\Developer;
+
 
 class DeveloperController extends Controller
 {
@@ -32,7 +32,7 @@ class DeveloperController extends Controller
     {
         $request->validated();
         $project = Project::find($request->project_id);
-        $data['project_id'] = $request->project_id;
+        $data['developer_id'] = $request->developer_id;
         $project->update($data);
         $developer->update(['is_busy' => true]);
     }

@@ -29,6 +29,7 @@ const alert = computed(() => usePage().props.flash.alert);
 const {addAlert, alerts} = useAlerts();
 
 watch(alert, (newVal) => {
+    console.log(newVal);
     if (newVal) {
         addAlert(newVal);
     }

@@ -26,7 +26,7 @@ class StreamlineFinancialInfoBetweenPartiesJob implements ShouldQueue
             $project->run_count--;
 
             // On the last run, mark the project as finished
-            if ($project->run_count === 0) {
+            if ($project->run_count === 0 || $project->run_count < 0) {
                 $project->game->balance += $project->value;
                 $project->game->save();
 

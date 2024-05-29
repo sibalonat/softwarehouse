@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use Illuminate\Http\Request;
 
 class AuthEventIntervalController extends Controller
 {
@@ -15,10 +14,15 @@ class AuthEventIntervalController extends Controller
         ]);
     }
 
-    public function gameOverFlass()
+    public function gameOverFlash(User $user)
     {
-        session()->flash('alert', [
-            'message' => 'You reached the balance 0. Game over!',
-        ]);
+        ds($user);
+        $game = $user->load('game')->game;
+        if ($game->balance == 0 || $game->balance < 0) {
+            ds($game->balance);
+            return session()->flash('alert', [
+                'message' => 'You reached the balance 0. Game over!',
+            ]);
+        }
     }
 }

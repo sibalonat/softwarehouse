@@ -16,12 +16,15 @@ const { auth, showingSidebar } = storeToRefs(navigation);
 const game = ref(null)
 
 onMounted(() => {
-    setInterval(() => {
-        fetch(route('auth-event-interval', auth.value.user))
-            .then(response => response.json())
-            .then(data => {
-                game.value = data.game;
-            });
+    setInterval(async () => {
+        const budget = await axios.get(route('auth-event-interval', auth.value.user))
+        game.value = budget.data.game;
+
+        const gameover = await axios.get(route('auth-event-interval-game-over-flash', auth.value.user))
+
+        console.log(gameover.data);
+
+
     }, 1000);
 });
 
@@ -31,6 +34,7 @@ onMounted(() => {
 
 <template>
     <div>
+        {{ $page.props.flash }}
         <div class="min-h-screen bg-gray-100">
             <nav class="w-full border-b border-gray-100 bg-virtual-blue fix">
 

@@ -70,6 +70,10 @@ Route::middleware('auth', 'verified')->group(function () {
     Route::get('/auth-event-interval/{user}', [
         AuthEventIntervalController::class, 'getDataForUser'
     ])->name('auth-event-interval');
+    // trigger game over flash message
+    Route::get('/auth-event-interval-game-over-flash/{user}', [
+        AuthEventIntervalController::class, 'gameOverFlash'
+    ])->name('auth-event-interval-game-over-flash');
 
 });
 

@@ -58,7 +58,7 @@ const submitHandler = (fields, node) => {
     if (fields['developer_id'] === null) {
         return;
     }
-    form.put(route('production.developers.update', fields['developer_id']))(fields, node)
+    form.put(route('production.developers.update', { developer: fields['developer_id'] }))(fields, node)
 }
 
 const changeHandler = () => {
@@ -207,3 +207,8 @@ const changeHandler = () => {
         </div>
     </AuthenticatedLayout>
 </template>
+<style>
+.hideit {
+    display: none !important;
+}
+</style>

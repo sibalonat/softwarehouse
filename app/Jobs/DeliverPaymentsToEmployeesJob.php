@@ -21,6 +21,7 @@ class DeliverPaymentsToEmployeesJob implements ShouldQueue
         $games = Game::with('developers', 'salespeople')->get();
 
         foreach ($games as $game) {
+            ds($game);
 
             if ($game->balance > 0) {
                 ds($game->balance);
@@ -36,7 +37,8 @@ class DeliverPaymentsToEmployeesJob implements ShouldQueue
 
                 $game->balance -= $totalCost;
                 $game->save();
-            } else {
+                ds($game->balance);
+            } else if($game->balance < 0 || $game->balance == 0) {
                 $game->developers->each(function ($developer) use ($game) {
                     $developer->hired = false;
                     $developer->save();

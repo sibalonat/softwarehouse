@@ -22,7 +22,7 @@ class ProjectController extends Controller
         ->withQueryString();
         return inertia('Production/ProductionProjectScreen', [
             'projects' => $projects,
-            'developers' => Developer::with('project')->whereHired(true)->get()->toLabelValueArray('name', 'id')
+            'developers' => Developer::whereHired(true)->whereDoesntHave('project')->get()->toLabelValueArray('name', 'id')
         ]);
     }
 
