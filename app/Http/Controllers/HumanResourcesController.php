@@ -27,6 +27,7 @@ class HumanResourcesController extends Controller
     public function hireSalesPerson(SalesPeople $salesPerson, HireSalesPerson $request)
     {
         $data = $request->validated();
+        $data['hired_at'] = now();
         $salesPerson->update($data);
 
         return redirect()->route('hr.salesforce');
@@ -35,6 +36,7 @@ class HumanResourcesController extends Controller
     public function hireDeveloper(Developer $developer, HireDeveloper $request)
     {
         $data = $request->validated();
+        $data['hired_at'] = now();
         $developer->update($data);
 
         return redirect()->route('hr.developers');

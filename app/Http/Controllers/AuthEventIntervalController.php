@@ -84,7 +84,20 @@ class AuthEventIntervalController extends Controller
             'name' => Str::ucfirst($projectName),
             'description' => Str::ucfirst($projectDescription),
         ]);
-        // Developer::create($user->createFirstDeveloper());
+
         return Redirect::route('dashboard');
+    }
+
+    public function peopleHired(User $user)
+    {
+        $game = $user->load('game')->game;
+        $game->load('developers', 'salespeople');
+        $developers = $game->developers->where('hired', true)->count();
+        $salesforce = $game->salespeople->where('hired', true)->count();
+
+        return response()->json([
+            'developers' => $developers,
+            'salesforce' => $salesforce,
+        ]);
     }
 }

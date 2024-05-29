@@ -37,6 +37,7 @@ export default {
     sizeClasses() {
       let finalClasses = {};
       const size = this.size && this.size >= 3 ? this.size : 6;
+      console.log(size);
       finalClasses['h-' + size.toString()] = true;
       finalClasses['w-' + size.toString()] = true;
       return finalClasses;

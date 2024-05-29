@@ -6,10 +6,11 @@ import { storeToRefs } from 'pinia';
 import { ref } from 'vue';
 import { reactive } from 'vue';
 
+
 const props = defineProps({
-    projects: Number,
-    salesforce: Number,
-    developers: Number,
+    cost: Number,
+    balance: Number,
+    update: String,
 });
 
 /// pinia
@@ -33,10 +34,16 @@ const chartOptions = reactive({
         bottom: -80
         }
     },
-    labels: ['Projects', 'Sales-Force', 'Developers'],
+    labels: ['Costs', 'Revenue'],
 });
 
-const series = ref([props.projects, props.salesforce, props.developers]);
+const series = ref([props.cost, props.balance]);
+
+// onMounted(() => {
+//     setInterval(async () => {
+//         // Your code here
+//     }, 180000);
+// });
 
 </script>
 
@@ -55,8 +62,8 @@ const series = ref([props.projects, props.salesforce, props.developers]);
                         <div class="w-1/2 mx-auto">
                             <apexchart type="donut" :options="chartOptions" :series="series"></apexchart>
                         </div>
-                        <p class="bg-graybell px-4 py-2">
-                            Last game update: {{ auth.user.last_gameplay }}
+                        <p class="bg-graybell px-4 py-2 text-sm font-light">
+                            Last game update: {{ update }}
                         </p>
                     </div>
                 </div>

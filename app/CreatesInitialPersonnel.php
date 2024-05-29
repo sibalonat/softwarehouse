@@ -17,6 +17,7 @@ trait CreatesInitialPersonnel
             'name' => $faker->firstName,
             'last_name' => $faker->lastName,
             'hired' => true,
+            'hired_at' => now(),
             'experience' => $experience->value,
             'cost' => $value,
         ];
@@ -36,6 +37,7 @@ trait CreatesInitialPersonnel
             'last_name' => $faker->lastName,
             'seniority' => $experience->value,
             'hired' => true,
+            'hired_at' => now(),
             'cost' => $value,
         ];
 

@@ -15,6 +15,8 @@ const navigation = useNavigationStore();
 const { auth, showingSidebar } = storeToRefs(navigation);
 const game = ref(null)
 const alert = ref('')
+const developershired = ref(0)
+const salesforcehired = ref(0)
 
 onMounted(() => {
     setInterval(async () => {
@@ -22,10 +24,14 @@ onMounted(() => {
         game.value = budget.data.game;
 
         const gameover = await axios.get(route('auth-event-interval-game-over-flash', auth.value.user))
-
         if (gameover.data.message && !alert.value?.message) {
-            console.log(gameover.data.message);
             alert.value = gameover.data;
+        }
+
+        const hired = await axios.get(route('hired-personel', auth.value.user))
+        if (hired.data) {
+            developershired.value = hired.data.developers;
+            salesforcehired.value = hired.data.salesforce;
         }
 
     }, 1000);
@@ -96,6 +102,22 @@ onMounted(() => {
                                 Budget:
                                 </span>
                                 {{ game.balance }} €
+                            </p>
+                        </div>
+                        <div class="items-center hidden px-4 py-1 space-x-4 text-sm rounded-md text-neutral-50 bg-neutral-50/10 md:flex"
+                        v-if="game">
+                            <p class="relative flex">
+                                <span class="mr-2 text-xs opacity-70 my-auto">
+                                Hired:
+                                </span>
+                                <DynamicHeroicon name="command-line" :size="5" class="inline-flex mx-2 py-0.7" />
+                                <span class="mr-4 my-auto atext-xs">
+                                {{ developershired }}
+                                </span>
+                                <DynamicHeroicon name="users" :size="5" class="inline-flex mx-2" />
+                                <span>
+                                {{ salesforcehired }}
+                                </span>
                             </p>
                         </div>
                     </div>

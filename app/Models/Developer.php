@@ -22,6 +22,7 @@ class Developer extends Model
         'hired',
         'seniority',
         'is_busy',
+        'hired_at',
     ];
 
     /**
@@ -43,6 +44,7 @@ class Developer extends Model
     {
         return [
             'is_busy' => 'boolean',
+            'hired_at' => 'datetime:Y-m-d H:i',
             'seniority' => DeveloperSeniorityAttribute::class,
         ];
     }

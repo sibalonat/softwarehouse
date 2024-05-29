@@ -19,6 +19,7 @@ class SalesPeople extends Model
         'is_busy',
         'last_name',
         'experience',
+        'hired_at'
     ];
 
     /**
@@ -40,7 +41,7 @@ class SalesPeople extends Model
     {
         return [
             'is_busy' => 'boolean',
-            // 'hired' => 'boolean',
+            'hired_at' => 'datetime:Y-m-d H:i',
             'experience' => SalesPersonExperienceAttribute::class,
         ];
     }

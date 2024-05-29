@@ -18,6 +18,7 @@ return new class extends Migration
             $table->enum('experience', ['beginner', 'intermediate', 'advanced'])->default('beginner');
             $table->integer('cost')->default(0);
             $table->boolean('hired')->default(false);
+            $table->dateTime('hired_at')->nullable();
             $table->boolean('is_busy')->default(false);
             $table->timestamps();
         });

@@ -78,6 +78,11 @@ Route::middleware('auth', 'verified')->group(function () {
     Route::get('/restart-game', [
         AuthEventIntervalController::class, 'restartGame'
     ])->name('restart-game');
+    // count the hired resources
+    Route::get('/hired-personel/{user}', [
+        AuthEventIntervalController::class, 'peopleHired'
+    ])->name('hired-personel');
+    // metrics, cost & balance
 
 });
 
