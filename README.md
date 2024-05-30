@@ -4,7 +4,7 @@
 
 SOFTWAREHOUSE is a simulation of a software development company, built with Laravel and Vue 3. 
 
-When a user registers, a game is automatically created for them with an initial budget of 5000. The application includes multiple cron schedules that run jobs to create and delete projects, developers, and salesforce based on certain conditions.
+Upon registration, each user is automatically initiated into a game with a starting budget of 5000. The application is designed with multiple cron schedules that execute tasks to dynamically create and remove projects, developers, and salesforce based on predefined conditions.
 
 The navigation is divided into three sections:
 
@@ -12,7 +12,7 @@ The navigation is divided into three sections:
 2. **Sales**: This includes the salesforce.
 3. **HR**: This includes the Salesforce and Developers, and serves as a way to hire developers or salesforce.
 
-After hiring the salesforce, a job will eventually run and assign the salesforce to a project based on their complexity/experience. Once a developer is also assigned to the project, payments will be streamlined every 10 minutes in three phases: 30%, 40%, and the final 30%. After the final payment, the project will be considered completed and will be deleted in the next job deletion schedule.
+At the onset of the game, an intermediate project is automatically generated, along with a developer and a salesperson for the project. This initiates the game jobs to create the necessary projects and staff for recruitment. Post recruitment of the salesforce, a job is triggered to assign the salesforce to a project, taking into account their complexity/experience. Once a developer is assigned to the project, salary payments to the hired staff are processed every 30 seconds. Upon completion of the run_count, the project is marked as completed and the project's value is transferred to the game balance. Following the final payment, the project is deemed completed and is scheduled for deletion in the subsequent job deletion cycle. If the staff remains employed, the cost will accumulate and be deducted from the balance every 30 seconds.
 
 ## Docker Setup
 
