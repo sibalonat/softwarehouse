@@ -26,22 +26,19 @@ class HomeController extends Controller
         // projects section
         $game->load('projects');
 
-        $now = now();
-        $threeMinutesAgo = $now->subMinutes(3);
-
         $projectsWithDevAndSales = $game->projects
             ->whereNotNull('developer_id')
             ->whereNotNull('sales_people_id')
             ->count();
 
-        $projectsWithoutDevAndSales = $game->projects
-            ->whereBetween('end_date', [$threeMinutesAgo, $now])
-            ->whereNull('developer_id')
-            ->whereNull('sales_people_id')
+        $projectsIsCompleted = $game->projects
+            ->where('is_completed', true)
             ->count();
 
         $projectsWithoutEndDate = $game->projects
-            ->whereNull('end_date')
+            ->where('is_completed', false)
+            ->whereNull('developer_id')
+            ->whereNull('sales_people_id')
             ->count();
 
         return inertia('Dashboard', [
@@ -49,7 +46,7 @@ class HomeController extends Controller
             'balance' => $game->balance,
             'update' => now()->subMinutes(3)->format('Y-m-d H:i:s'),
             'projectsWithDevAndSales' => $projectsWithDevAndSales,
-            'projectsWithoutDevAndSales' => $projectsWithoutDevAndSales,
+            'projectsWithoutDevAndSales' => $projectsIsCompleted,
             'projectsWithoutEndDate' => $projectsWithoutEndDate,
         ]);
     }
