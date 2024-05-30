@@ -71,6 +71,15 @@ onBeforeMount(() => {
     setInitialValues()
 });
 
+setInterval(async () => {
+    router.reload({
+        only: ['salesforce'],
+        onFinish: () => {
+            setUpData(props.salesforce);
+            setInitialValues()
+    }});
+}, 18000);
+
 </script>
 
 <template>

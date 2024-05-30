@@ -70,6 +70,15 @@ onBeforeMount(() => {
     setInitialValues()
 });
 
+setInterval(async () => {
+    router.reload({
+        only: ['developers'],
+        onFinish: () => {
+            setUpData(props.developers);
+            setInitialValues()
+    }});
+}, 18000);
+
 
 </script>
 

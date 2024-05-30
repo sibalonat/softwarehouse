@@ -1,8 +1,7 @@
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
-import { useNavigationStore } from '@/Stores/NavigationStore';
-import { Head } from '@inertiajs/vue3';
-import { storeToRefs } from 'pinia';
+import { Head, router } from '@inertiajs/vue3';
+import { onMounted } from 'vue';
 import { ref } from 'vue';
 import { reactive } from 'vue';
 
@@ -11,11 +10,11 @@ const props = defineProps({
     cost: Number,
     balance: Number,
     update: String,
+    projectsWithDevAndSales: Number,
+    projectsWithoutDevAndSales: Number,
+    projectsWithoutEndDate: Number,
 });
 
-/// pinia
-const navigation = useNavigationStore();
-const { auth } = storeToRefs(navigation);
 
 // properties
 const chartOptions = reactive({
@@ -39,11 +38,40 @@ const chartOptions = reactive({
 
 const series = ref([props.cost, props.balance]);
 
-// onMounted(() => {
-//     setInterval(async () => {
-//         // Your code here
-//     }, 180000);
-// });
+const chartOperationOptions = reactive({
+    chart: {
+        type: 'donut',
+    },
+    plotOptions: {
+        pie: {
+        startAngle: -90,
+        endAngle: 90,
+        offsetY: 10
+        }
+    },
+    grid: {
+        padding: {
+        bottom: -80
+        }
+    },
+    labels: ['Projects finished', 'Projects ongoing', 'Projects without end date'],
+});
+
+const OperationSeries = ref([props.projectsWithoutDevAndSales, props.projectsWithDevAndSales, props.projectsWithoutEndDate]);
+
+onMounted(() => {
+    setInterval(async () => {
+        router.reload({
+            only: [
+                'cost',
+                'balance',
+                'update',
+                'projectsWithDevAndSales',
+                'projectsWithoutDevAndSales',
+                'projectsWithoutEndDate'
+            ]});
+    }, 180000);
+});
 
 </script>
 
@@ -59,9 +87,19 @@ const series = ref([props.cost, props.balance]);
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                     <div class="p-6 text-gray-900">
-                        <div class="w-1/2 mx-auto">
-                            <apexchart type="donut" :options="chartOptions" :series="series"></apexchart>
+                        <div class="grid grid-cols-2 gap-x-5 mx-auto">
+                            <div class="flex flex-col border p-3 rounded-t-md">
+                                <h3 class="text-lg font-semibold text-gray-800">Financial Overview</h3>
+
+                                <apexchart type="donut" :options="chartOptions" :series="series"></apexchart>
+                            </div>
+                            <div class="flex flex-col flex flex-col relative border p-3 rounded-t-md">
+                                <h3 class="text-lg font-semibold text-gray-800"> Operation Overview </h3>
+
+                                <apexchart type="donut" :options="chartOperationOptions" :series="OperationSeries"></apexchart>
+                            </div>
                         </div>
+
                         <p class="bg-graybell px-4 py-2 text-sm font-light">
                             Last game update: {{ update }}
                         </p>

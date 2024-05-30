@@ -82,7 +82,6 @@ Route::middleware('auth', 'verified')->group(function () {
     Route::get('/hired-personel/{user}', [
         AuthEventIntervalController::class, 'peopleHired'
     ])->name('hired-personel');
-    // metrics, cost & balance
 
 });
 
