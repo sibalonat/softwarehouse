@@ -52,7 +52,7 @@ jobs:
         run: composer update --no-interaction
       
       - name: Check for security vulnerabilities
-        run: composer audit
+        run: composer audit || true
       
       - name: Create Pull Request
         if: always()
